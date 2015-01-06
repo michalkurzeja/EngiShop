@@ -1,11 +1,8 @@
 <?php
 
-namespace JKP\CoreBundle\Entity;
+namespace EngiShopBundle\Entity;
 
-use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Translatable;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints\NotNull;
 use Symfony\Component\Validator\Constraints\Regex;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
@@ -14,10 +11,9 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
  * Product
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="JKP\CoreBundle\Entity\ProductRepository")
- * @UniqueEntity("slug")
+ * @ORM\Entity(repositoryClass="EngiShopBundle\Entity\ProductRepository")
  */
-class Product implements Translatable
+class Product
 {
     /**
      * @var integer
@@ -31,7 +27,6 @@ class Product implements Translatable
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
@@ -46,7 +41,6 @@ class Product implements Translatable
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -93,13 +87,6 @@ class Product implements Translatable
      */
     private $category;
 
-    /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
-     */
-    private $locale;
-
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
@@ -117,6 +104,7 @@ class Product implements Translatable
 
     /**
      * @param string $name
+     * @return $this
      */
     public function setName($name)
     {
@@ -157,6 +145,7 @@ class Product implements Translatable
 
     /**
      * @param string $description
+     * @return $this
      */
     public function setDescription($description)
     {
@@ -174,6 +163,7 @@ class Product implements Translatable
 
     /**
      * @param float $price
+     * @return $this
      */
     public function setPrice($price)
     {
@@ -191,6 +181,7 @@ class Product implements Translatable
 
     /**
      * @param boolean $active
+     * @return $this
      */
     public function setActive($active)
     {
@@ -208,6 +199,7 @@ class Product implements Translatable
 
     /**
      * @param boolean $featured
+     * @return $this
      */
     public function setFeatured($featured)
     {
@@ -247,7 +239,8 @@ class Product implements Translatable
     }
 
     /**
-     * @param \JKP\CoreBundle\Entity\File $image
+     * @param \EngiShopBundle\Entity\File $image
+     * @return $this
      */
     public function setImage(File $image)
     {
@@ -256,7 +249,7 @@ class Product implements Translatable
     }
 
     /**
-     * @return \JKP\CoreBundle\Entity\File
+     * @return \EngiShopBundle\Entity\File
      */
     public function getImage()
     {
@@ -277,7 +270,8 @@ class Product implements Translatable
     }
 
     /**
-     * @param \JKP\CoreBundle\Entity\Category $category
+     * @param \EngiShopBundle\Entity\Category $category
+     * @return $this
      */
     public function setCategory($category)
     {
@@ -286,21 +280,11 @@ class Product implements Translatable
     }
 
     /**
-     * @return \JKP\CoreBundle\Entity\Category
+     * @return \EngiShopBundle\Entity\Category
      */
     public function getCategory()
     {
         return $this->category;
-    }
-
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    public static function getValidLocale()
-    {
-        return array('pl', 'en', 'hu');
     }
 
     public static function loadValidatorMetadata(ClassMetadata $metadata) {

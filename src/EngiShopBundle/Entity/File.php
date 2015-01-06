@@ -1,6 +1,6 @@
 <?php
 
-namespace JKP\CoreBundle\Entity;
+namespace EngiShopBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  * File
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="JKP\CoreBundle\Entity\FileRepository")
+ * @ORM\Entity(repositoryClass="EngiShopBundle\Entity\FileRepository")
  * @ORM\HasLifecycleCallbacks
  */
 class File
 {
-    const UPLAOD_DIR_BASE = 'uploads';
+    const UPLOAD_DIR_BASE = 'uploads';
     const UPLOAD_SUBDIR = 'files';
 
     /**
@@ -31,7 +31,6 @@ class File
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
-     * @Assert\NotBlank(message="Ta wartość nie powinna być pusta.")
      */
     private $name;
 
@@ -43,7 +42,7 @@ class File
     private $path;
 
     /**
-     * @Assert\File(maxSize="6000000")
+     * @var file
      */
     private $file;
 
@@ -204,6 +203,6 @@ class File
 
     protected function getUploadDir()
     {
-        return self::UPLAOD_DIR_BASE . '/' . self::UPLOAD_SUBDIR;
+        return self::UPLOAD_DIR_BASE . '/' . self::UPLOAD_SUBDIR;
     }
 }

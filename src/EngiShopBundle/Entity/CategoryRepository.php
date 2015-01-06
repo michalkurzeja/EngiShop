@@ -1,6 +1,6 @@
 <?php
 
-namespace JKP\CoreBundle\Entity;
+namespace EngiShopBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

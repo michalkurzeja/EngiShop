@@ -1,9 +1,8 @@
 <?php
 
-namespace JKP\CoreBundle\Entity;
+namespace EngiShopBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -11,7 +10,6 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="EngiShopBundle\Entity\CategoryRepository")
- * @UniqueEntity("slug")
  */
 class Category
 {
