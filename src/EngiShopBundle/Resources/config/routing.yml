@@ -1,3 +1,7 @@
-engi_shop_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: EngiShopBundle:Default:index }
+engishop_admin:
+    resource: "@EngiShopBundle/Resources/config/routing_admin.yml"
+    prefix:   /admin
+
+engishop_front:
+    resource: "@EngiShopBundle/Resources/config/routing_front.yml"
+    prefix:   /

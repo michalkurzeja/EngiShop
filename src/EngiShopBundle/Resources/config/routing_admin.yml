@@ -1,0 +1,21 @@
+engishop_admin_category:
+    resource: "@EngiShopBundle/Resources/config/admin/category.yml"
+    prefix:   /category
+
+engishop_admin_product:
+    resource: "@EngiShopBundle/Resources/config/admin/product.yml"
+    prefix:   /product
+
+engishop_admin_login:
+    path:     /login
+    defaults: { _controller: EngiShopBundle:AdminSecurity:login }
+
+engishop_admin_login_check:
+    path: /login_check
+
+engishop_admin_logout:
+    path: /logout
+
+engishop_admin_homepage:
+    path: /
+    defaults: { _controller: EngiShopBundle:AdminIndex:index }

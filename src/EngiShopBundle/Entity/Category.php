@@ -51,6 +51,13 @@ class Category
     private $createdAt;
 
     /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean")
+     */
+    private $active;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
@@ -165,6 +172,23 @@ class Category
         return $this->createdAt;
     }
 
+    /**
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active;
+    }
+
+    /**
+     * @param boolean $active
+     * @return $this
+     */
+    public function setActive($active)
+    {
+        $this->active = $active;
+        return $this;
+    }
 
     /**
      * @param \Doctrine\Common\Collections\ArrayCollection $products
