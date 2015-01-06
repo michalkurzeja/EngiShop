@@ -1,0 +1,3 @@
+engi_shop:
+    resource: "@EngiShopBundle/Resources/config/routing.yml"
+    prefix:   /
