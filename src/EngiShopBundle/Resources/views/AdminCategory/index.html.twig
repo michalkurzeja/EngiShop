@@ -1,10 +1,10 @@
-{% extends 'JKPAdminBundle::layout.html.twig' %}
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
 {% block header %}
     <h1>Kategorie</h1>
 {% endblock header %}
 {% block content %}
     <div>
-        <a class="btn btn-primary pull-right" href="{{ path('jkp_admin_category_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowa kategoria</a>
+        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_category_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowa kategoria</a>
     </div>
     <table class="table">
         <thead>
@@ -28,11 +28,11 @@
                 <td>{% if category.active %}<span class="label label-success">Aktywna</span>{% else %}<span class="label label-danger">Nieaktywna</span>{% endif %}</td>
                 <td>{{ category.createdAt | date('d-m-Y') }}</td>
                 <td class="actions">
-                    <form class="inline-block" action="{{ path('jkp_admin_category_switch', { 'id': category.id }) }}" method="post">
+                    <form class="inline-block" action="{{ path('engishop_admin_category_toggle', { 'id': category.id }) }}" method="post">
                         <button type="submit" class="btn btn-{% if category.active %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if category.active %}ban{% else %}ok{% endif %}-circle"></span> {% if category.active %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
                     </form>
-                    <a class="btn btn-warning btn-xs" href="{{ path('jkp_admin_category_edit', { 'id': category.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
-                    <form class="inline-block" action="{{ path('jkp_admin_category_delete', { 'id': category.id }) }}" method="post">
+                    <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_category_edit', { 'id': category.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+                    <form class="inline-block" action="{{ path('engishop_admin_category_delete', { 'id': category.id }) }}" method="post">
                         <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
                     </form>
                 </td>
@@ -40,7 +40,7 @@
         {% else %}
             <tr class="table-empty-row">
                 <td colspan="7">
-                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych kategorii! Kliknij <a href="{{ path('jkp_admin_category_new') }}">tutaj</a> żeby dodać nową kategorię!</h4>
+                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych kategorii! Kliknij <a href="{{ path('engishop_admin_category_new') }}">tutaj</a> żeby dodać nową kategorię!</h4>
                 </td>
             </tr>
         {% endfor %}

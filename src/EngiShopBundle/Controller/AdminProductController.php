@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class ProductController extends Controller
+class AdminProductController extends Controller
 {
     /**
      * @Template
@@ -17,7 +17,7 @@ class ProductController extends Controller
     public function indexAction()
     {
         return [
-            'products' => $this->getDoctrine()->getRepository('JKPCoreBundle:Product')->findAll()
+            'products' => $this->getDoctrine()->getRepository('EngiShopBundle:Product')->findAll()
         ];
     }
 
@@ -41,7 +41,8 @@ class ProductController extends Controller
         }
 
         return [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'product' => $product
         ];
     }
 

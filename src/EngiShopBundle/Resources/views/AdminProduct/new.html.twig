@@ -1,0 +1,43 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+{% block header %}
+    <h1>Nowy Produkt</h1>
+{% endblock header %}
+{% block content %}
+    <form class="contain-floats" action="{{ path('engishop_admin_product_new') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.slug) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.featured) }}
+        {{ form_row(form.active) }}
+        {{ form_widget(form.image) }}
+
+        {% if product.image %}
+            <div id="img-preview">
+                <div class="col-lg-3"><label class="control-label">Obecny obraz:</label></div>
+                <div class="col-lg-8">
+                    <img src="/{{ product.image.webPath }}" alt="obraz" class="img-thumbnail" width="200" />
+                    <button type="button" data-href="{{ path('engishop_admin_product_delete_image', { 'id': product.id }) }}" class="btn btn-link delete" style="vertical-align:top"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                </div>
+            </div>
+        {% endif %}
+
+        {{ form_rest(form) }}
+
+        <div class="col-lg-offset-3 col-lg-8">
+            <div class="buttons-wrap inline-block">
+                <a href="{{ path('engishop_admin_product') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                <button type="submit" class="btn btn-primary">Dodaj <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            $('select').select2();
+        });
+    </script>
+{% endblock content %}

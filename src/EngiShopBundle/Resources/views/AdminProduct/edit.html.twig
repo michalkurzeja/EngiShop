@@ -1,0 +1,73 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+{% block header %}
+    <h1>Edycja Produktu</h1>
+{% endblock header %}
+{% block content %}
+    <form class="contain-floats" action="{{ path('engishop_admin_product_edit', { 'id': product.id }) }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_row(form.name) }}
+        {{ form_row(form.description) }}
+        {{ form_row(form.price) }}
+        {{ form_row(form.slug) }}
+        {{ form_row(form.category) }}
+        {{ form_row(form.featured) }}
+        {{ form_row(form.active) }}
+        {{ form_widget(form.image) }}
+
+        {% if product.image %}
+            <div id="img-preview">
+                <div class="col-lg-3"><label class="control-label">Obecny obraz:</label></div>
+                <div class="col-lg-8">
+                    <img src="/{{ product.image.webPath }}" alt="obraz" class="img-thumbnail" width="200" />
+                    <a href="{{ path('engishop_admin_product_delete_image', { 'id': product.id }) }}" class="btn btn-link delete" style="vertical-align:top"><span class="glyphicon glyphicon-trash"></span> Usuń</a>
+                </div>
+            </div>
+        {% endif %}
+
+        {{ form_rest(form) }}
+
+        <div class="col-lg-offset-3 col-lg-8">
+            <div class="buttons-wrap inline-block">
+                <a href="{{ path('engishop_admin_product') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                <button type="submit" class="btn btn-primary">Zapisz <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            $('select').select2();
+
+            $('a.delete').click(function() {
+                var $a = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć ten produkt?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $a.attr('disabled', true);
+
+                                $.post($a.attr('href'), function(response) {
+                                    if (response) {
+                                        $('#img-preview').remove();
+                                    }
+                                })
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock content %}

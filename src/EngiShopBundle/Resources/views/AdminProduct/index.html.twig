@@ -1,10 +1,10 @@
-{% extends 'JKPAdminBundle::layout.html.twig' %}
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
 {% block header %}
     <h1>Produkty</h1>
 {% endblock header %}
 {% block content %}
     <div>
-        <a class="btn btn-primary pull-right" href="{{ path('jkp_admin_product_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy produkt</a>
+        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_product_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy produkt</a>
     </div>
     <table class="table">
         <thead>
@@ -32,11 +32,11 @@
                     <td>{% if product.featured %}<span class="label label-primary">Tak</span>{% else %}<span class="label label-default">Nie</span>{% endif %}</td>
                     <td>{{ product.createdAt | date('d-m-Y') }}</td>
                     <td class="actions">
-                        <form class="inline-block" action="{{ path('jkp_admin_product_switch', { 'id': product.id }) }}" method="post">
+                        <form class="inline-block" action="{{ path('engishop_admin_product_toggle', { 'id': product.id }) }}" method="post">
                             <button type="submit" class="btn btn-{% if product.active %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if product.active %}ban{% else %}ok{% endif %}-circle"></span> {% if product.active %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
                         </form>
-                        <a class="btn btn-warning btn-xs" href="{{ path('jkp_admin_product_edit', { 'id': product.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
-                        <form class="inline-block" action="{{ path('jkp_admin_product_delete', { 'id': product.id }) }}" method="post">
+                        <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_product_edit', { 'id': product.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+                        <form class="inline-block" action="{{ path('engishop_admin_product_delete', { 'id': product.id }) }}" method="post">
                             <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
                         </form>
                     </td>
@@ -44,7 +44,7 @@
             {% else %}
                 <tr class="table-empty-row">
                     <td colspan="7">
-                        <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych produktów! Kliknij <a href="{{ path('jkp_admin_product_new') }}">tutaj</a> żeby dodać nowy produkt!</h4>
+                        <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych produktów! Kliknij <a href="{{ path('engishop_admin_product_new') }}">tutaj</a> żeby dodać nowy produkt!</h4>
                     </td>
                 </tr>
             {% endfor %}

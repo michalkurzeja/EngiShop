@@ -30,7 +30,9 @@ twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     form:
-        resources: ['bootstrap_3_layout.html.twig']
+        resources: ['EngiShopBundle:Form:fields.html.twig']
+    globals:
+        shop_url: %shop_url%
         # resources: ['bootstrap_3_horizontal_layout.html.twig']
 
 # Assetic Configuration

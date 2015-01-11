@@ -2,6 +2,7 @@
 
 namespace EngiShopBundle\Controller;
 
+use Doctrine\ORM\EntityManager;
 use EngiShopBundle\Form\Type\CategoryType;
 use EngiShopBundle\Entity\Category;
 use EngiShopBundle\Entity\Product;
@@ -17,7 +18,7 @@ class AdminCategoryController extends Controller
     public function indexAction()
     {
         return [
-            'categories' => $this->getDoctrine()->getManager()->getRepository('JKPCoreBundle:Category')->findAll()
+            'categories' => $this->getDoctrine()->getManager()->getRepository('EngiShopBundle:Category')->findAll()
         ];
     }
 
@@ -32,6 +33,7 @@ class AdminCategoryController extends Controller
         $form = $this->createForm(new CategoryType(), $category);
 
         if ($form->handleRequest($request)->isValid()) {
+            /** @var EntityManager $em */
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();

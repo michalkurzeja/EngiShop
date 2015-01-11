@@ -1,8 +1,8 @@
-{% extends 'JKPAdminBundle::layout.html.twig' %}
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
 {% block nav %}
     <nav class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('jkp_admin_login') }}">JKP Admin Panel</a>
+            <a class="navbar-brand" href="{{ path('engishop_admin_login') }}">EngiShop Admin</a>
         </div>
     </nav>
 {% endblock nav %}
@@ -17,7 +17,7 @@
                     <div>{{ error.message }}</div>
                 {% endif %}
 
-                <form action="{{ path('jkp_admin_login_check') }}" method="post">
+                <form action="{{ path('engishop_admin_login_check') }}" method="post">
                     <label for="username">Login:</label>
                     <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
 
@@ -26,7 +26,7 @@
 
                     <input type="hidden" name="_target_path" value="/admin" />
 
-                    <button class="btn btn-primary pull-right" type="submit">Login <span class="glyphicon glyphicon-chevron-right"></span></button>
+                    <button class="btn btn-primary pull-right" type="submit">Zaloguj <span class="glyphicon glyphicon-chevron-right"></span></button>
                 </form>
             </div>
         </div>

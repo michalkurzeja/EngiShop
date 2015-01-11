@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class File
 {
+    const WEB_DIR_RELATIVE = '/../../../web/';
     const UPLOAD_DIR_BASE = 'uploads';
     const UPLOAD_SUBDIR = 'files';
 
@@ -198,7 +199,7 @@ class File
 
     protected function getUploadRootDir()
     {
-        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+        return __DIR__.self::WEB_DIR_RELATIVE.$this->getUploadDir();
     }
 
     protected function getUploadDir()

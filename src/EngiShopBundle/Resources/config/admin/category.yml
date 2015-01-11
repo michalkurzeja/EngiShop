@@ -1,26 +1,26 @@
 engishop_admin_category:
     path: /
-    defaults: { _controller: engishop_adminBundle:Category:index }
+    defaults: { _controller: EngiShopBundle:AdminCategory:index }
 
 engishop_admin_category_new:
     path: /new
-    defaults: { _controller: engishop_adminBundle:Category:new }
+    defaults: { _controller: EngiShopBundle:AdminCategory:new }
 
 engishop_admin_category_edit:
     path: /edit/{id}
-    defaults: { _controller: engishop_adminBundle:Category:edit }
+    defaults: { _controller: EngiShopBundle:AdminCategory:edit }
     requirements:
         id:  \d+
 
 engishop_admin_category_toggle:
     path: /toggle/{id}
-    defaults: { _controller: engishop_adminBundle:Category:toggle }
+    defaults: { _controller: EngiShopBundle:AdminCategory:toggle }
     methods:  [POST]
     requirements:
         id:  \d+
 
 engishop_admin_category_delete:
     path: /delete/{id}
-    defaults: { _controller: engishop_adminBundle:Category:delete }
+    defaults: { _controller: EngiShopBundle:AdminCategory:delete }
     requirements:
         id:  \d+
