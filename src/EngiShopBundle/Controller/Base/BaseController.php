@@ -15,13 +15,4 @@ class BaseController extends Controller
     {
         return $this->getDoctrine()->getManager();
     }
-
-    /**
-     * @param string $class
-     * @return \Doctrine\ORM\EntityRepository
-     */
-    protected function getRepository($class)
-    {
-        return $this->getEm()->getRepository($class);
-    }
 }

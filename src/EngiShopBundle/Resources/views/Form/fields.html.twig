@@ -1,6 +1,12 @@
 {% extends "bootstrap_3_layout.html.twig" %}
 
 {# Widgets #}
+{% block form_label %}
+    {{- parent() -}}
+    {% if required %}
+        <span class="required-marker">*</span>
+    {% endif %}
+{% endblock %}
 
 {% block _engishop_product_price_widget %}
     <div class="input-group">
@@ -18,7 +24,7 @@
 
 {% block _engishop_category_slug_widget %}
     <div class="input-group">
-        <span class="input-group-addon">http://{{ shop_url }}/kat/</span>
+        <span class="input-group-addon">http://{{ shop_url }}/kategoria/</span>
         <input type="text" class="form-control" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     </div>
 {% endblock _engishop_category_slug_widget %}

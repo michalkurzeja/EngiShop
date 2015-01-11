@@ -1,4 +1,15 @@
 services:
-#    engi_shop.example:
-#        class: EngiShopBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    twig.extension.text:
+         class: Twig_Extensions_Extension_Text
+         tags:
+             - { name: twig.extension }
+
+    engishop.password_encoder:
+        class: EngiShopBundle\Services\PasswordEncoder
+        arguments:
+            - @security.encoder_factory
+
+    engishop.category_helper:
+        class: EngiShopBundle\Services\CategoryHelper
+        arguments:
+            - @doctrine.orm.entity_manager

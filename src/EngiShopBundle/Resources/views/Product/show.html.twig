@@ -1,0 +1,16 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content %}
+    <div class="product-header">
+        <h1>{{ product.name }}</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <p class="description">{{ product.description }}</p>
+            </div>
+            <div class="col-md-6">
+                <img src="/{{ product.imagePath }}" class="thumbnail" width="600">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

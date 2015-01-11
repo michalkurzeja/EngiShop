@@ -1,3 +1,21 @@
+engishop_front_category:
+    resource: "@EngiShopBundle/Resources/config/front/category.yml"
+    prefix:   /kategoria
+
+engishop_front_product:
+    resource: "@EngiShopBundle/Resources/config/front/product.yml"
+    prefix:   /
+
+engishop_front_login:
+    path:     /login
+    defaults: { _controller: EngiShopBundle:Security:login }
+
+engishop_front_login_check:
+    path: /login_check
+
+engishop_front_logout:
+    path: /logout
+
 engishop_front_homepage:
     path: /
     defaults: { _controller: EngiShopBundle:Index:index }

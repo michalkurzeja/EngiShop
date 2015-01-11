@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation">
     <div class="container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
@@ -8,16 +8,23 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('engishop_admin_homepage') }}">EngiShop Admin</a>
+            <a class="navbar-brand" href="{{ path('engishop_front_homepage') }}">EngiShop</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li><a href="{{ path('engishop_admin_product') }}">Produkty</a></li>
-                <li><a href="{{ path('engishop_admin_category') }}">Kategorie</a></li>
-                <li><a href="{{ path('engishop_admin_user') }}">Użytkownicy</a></li>
+                <li><a href="{{ path('engishop_front_homepage') }}"><span class="glyphicon glyphicon-home"></span> Strona domowa</a></li>
+                <li><a href="{{ path('engishop_front_category') }}"><span class="glyphicon glyphicon-star"></span> Sklep</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-comment"></span> Blog</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-envelope"></span> Kontakt</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('engishop_admin_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
+            {% if app.user %}
+                <li><a href=""><span class="glyphicon glyphicon-user"></span> Konto</a></li>
+                <li><a href=""><span class="glyphicon glyphicon-shopping-cart"></span> Koszyk</a></li>
+                <li><a href="{{ path('engishop_front_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
+            {% else %}
+                <li><a href="{{ path('engishop_front_login') }}">Zaloguj <span class="glyphicon glyphicon-log-in"></span></a></li>
+            {% endif %}
             </ul>
         </div>
     </div>

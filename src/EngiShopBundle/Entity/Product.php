@@ -192,7 +192,7 @@ class Product
     /**
      * @return boolean
      */
-    public function getActive()
+    public function isActive()
     {
         return $this->active;
     }

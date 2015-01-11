@@ -1,3 +1,25 @@
 engishop_admin_user:
     path: /
     defaults: { _controller: EngiShopBundle:AdminUser:index }
+
+engishop_admin_user_new:
+    path: /new
+    defaults: { _controller: EngiShopBundle:AdminUser:new }
+
+engishop_admin_user_edit:
+    path: /edit/{id}
+    defaults: { _controller: EngiShopBundle:AdminUser:edit }
+    requirements:
+        id:  \d+
+
+engishop_admin_user_delete:
+    path: /delete/{id}
+    defaults: { _controller: EngiShopBundle:AdminUser:delete }
+    requirements:
+        id:  \d+
+
+engishop_admin_user_toggle:
+    path: /toggle/{id}
+    defaults: { _controller: EngiShopBundle:AdminUser:toggle }
+    requirements:
+        id:  \d+

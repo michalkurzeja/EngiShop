@@ -1,0 +1,9 @@
+engishop_front_category:
+    path: /wszystkie
+    defaults: { _controller: EngiShopBundle:Category:index }
+
+engishop_front_category_show:
+    path: /{slug}
+    defaults: { _controller: EngiShopBundle:Category:show }
+    requirements:
+        slug: ^[a-zA-Z0-9_\-\+]+$

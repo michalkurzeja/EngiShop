@@ -3,6 +3,7 @@
 namespace EngiShopBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -60,7 +61,7 @@ class Category
     /**
      * @var ArrayCollection
      *
-     * @ORM\OneToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\OneToMany(targetEntity="Product", mappedBy="category", fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $products;
@@ -236,6 +237,15 @@ class Category
     public function getProducts()
     {
         return $this->products;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection|static
+     */
+    public function getActiveProducts()
+    {
+        $criteria = Criteria::create()->where(Criteria::expr()->eq('active', true));
+        return $this->getProducts()->matching($criteria);
     }
 
     /**

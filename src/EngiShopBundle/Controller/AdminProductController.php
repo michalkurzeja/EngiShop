@@ -16,7 +16,7 @@ class AdminProductController extends Base\AdminController
     public function indexAction()
     {
         return [
-            'products' => $this->getRepository('EngiShopBundle:Product')->findAll()
+            'products' => $this->getEm()->getRepository('EngiShopBundle:Product')->findAll()
         ];
     }
 
@@ -71,7 +71,7 @@ class AdminProductController extends Base\AdminController
      */
     public function toggleAction(Product $product)
     {
-        $product->setActive(!$product->getActive());
+        $product->setActive(!$product->isActive());
         $this->getEm()->flush();
 
         return $this->redirectToRoute('engishop_admin_product');

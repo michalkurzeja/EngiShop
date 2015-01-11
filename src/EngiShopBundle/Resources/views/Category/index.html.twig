@@ -1,0 +1,11 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content %}
+    <ul class="category-list">
+    {% for category in categories %}
+        <li>
+            {% include('@EngiShop/Category/_parts/category.yml.twig') with {category: category} %}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock content %}

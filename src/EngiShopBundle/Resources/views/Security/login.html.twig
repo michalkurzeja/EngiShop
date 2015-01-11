@@ -1,19 +1,13 @@
-{% extends 'EngiShopBundle::admin_layout.html.twig' %}
-{% block nav %}
-    <nav class="navbar navbar-default" role="navigation">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{{ path('engishop_admin_homepage') }}">EngiShop Admin</a>
-        </div>
-    </nav>
-{% endblock nav %}
-{% block content %}
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
     <div id="login-wrap" class="well">
         <div id="form-login" class="panel panel-primary">
             <div class="panel-heading bold">
                 <span class="glyphicon glyphicon-user"></span> Login
             </div>
             <div class="panel-body">
-                <form action="{{ path('engishop_admin_login_check') }}" method="post">
+                <form action="{{ path('engishop_front_login_check') }}" method="post">
                     <label for="username">Login:</label>
                     <input class="form-control" type="text" id="username" name="_username" value="{{ last_username }}" />
 
@@ -29,4 +23,4 @@
             </div>
         </div>
     </div>
-{% endblock content %}
+{% endblock content_main %}

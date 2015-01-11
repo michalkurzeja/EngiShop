@@ -1,0 +1,5 @@
+<div class="category">
+    <h2><a href="{{ path('engishop_front_category_show', {slug: category.slug}) }}">{{ category.name }}</a></h2>
+    <p class="description-elipsis">{{ category.description | truncate(150, true) }}</p>
+    <a href="{{ path('engishop_front_category_show', {slug: category.slug}) }}">Przejdź do kategorii &raquo;</a>
+</div>

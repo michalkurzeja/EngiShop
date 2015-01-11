@@ -1,0 +1,5 @@
+engishop_front_product_show:
+    path: /{slug}
+    defaults: { _controller: EngiShopBundle:Product:show }
+    requirements:
+        slug: ^[a-zA-Z0-9_\-\+]+$

@@ -2,7 +2,6 @@
 
 namespace EngiShopBundle\Controller;
 
-use Doctrine\ORM\EntityManager;
 use EngiShopBundle\Form\Type\CategoryType;
 use EngiShopBundle\Entity\Category;
 use EngiShopBundle\Entity\Product;
@@ -17,7 +16,7 @@ class AdminCategoryController extends Base\AdminController
     public function indexAction()
     {
         return [
-            'categories' => $this->getRepository('EngiShopBundle:Category')->findAll()
+            'categories' => $this->getEm()->getRepository('EngiShopBundle:Category')->findAll()
         ];
     }
 

@@ -1,42 +1,40 @@
 {% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
 {% block header %}
     <h1>Użytkownicy</h1>
 {% endblock header %}
+
 {% block content %}
     <div>
-        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_product_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy produkt</a>
+        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_user_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy użytkownik</a>
     </div>
     <table class="table">
         <thead>
         <tr>
             <th>Id</th>
             <th>Nazwa</th>
-            <th>Adres</th>
-            <th>Kategoria</th>
-            <th>Cena</th>
+            <th>Email</th>
             <th>Status</th>
-            <th>Na głównej</th>
+            <th>Zamówienia</th>
             <th>Utworzony</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
         <tbody>
-        {% for product in products %}
+        {% for user in users %}
             <tr>
-                <td>#{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.slug }}</td>
-                <td><strong>{% if product.category %}{{ product.category }}{% else %}-{% endif %}</strong></td>
-                <td><strong>{{ product.price }} ZŁ</strong></td>
-                <td>{% if product.active %}<span class="label label-success">Aktywny</span>{% else %}<span class="label label-danger">Nieaktywny</span>{% endif %}</td>
-                <td>{% if product.featured %}<span class="label label-primary">Tak</span>{% else %}<span class="label label-default">Nie</span>{% endif %}</td>
-                <td>{{ product.createdAt | date('d-m-Y') }}</td>
+                <td>#{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>{% if user.isActive %}<span class="label label-success">Aktywny</span>{% else %}<span class="label label-danger">Nieaktywny</span>{% endif %}</td>
+                <td><a>~</a></td>
+                <td>{{ user.createdAt | date('d-m-Y') }}</td>
                 <td class="actions">
-                    <form class="inline-block" action="{{ path('engishop_admin_product_toggle', { 'id': product.id }) }}" method="post">
-                        <button type="submit" class="btn btn-{% if product.active %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if product.active %}ban{% else %}ok{% endif %}-circle"></span> {% if product.active %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
+                    <form class="inline-block" action="{{ path('engishop_admin_user_toggle', { 'id': user.id }) }}" method="post">
+                        <button type="submit" class="btn btn-{% if user.isActive %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if user.isActive %}ban{% else %}ok{% endif %}-circle"></span> {% if user.isActive %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
                     </form>
-                    <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_product_edit', { 'id': product.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
-                    <form class="inline-block" action="{{ path('engishop_admin_product_delete', { 'id': product.id }) }}" method="post">
+                    <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_user_edit', { 'id': user.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+                    <form class="inline-block" action="{{ path('engishop_admin_user_delete', { 'id': user.id }) }}" method="post">
                         <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
                     </form>
                 </td>
@@ -44,7 +42,7 @@
         {% else %}
             <tr class="table-empty-row">
                 <td colspan="7">
-                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych produktów! Kliknij <a href="{{ path('engishop_admin_product_new') }}">tutaj</a> żeby dodać nowy produkt!</h4>
+                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych użytkowników! Kliknij <a href="{{ path('engishop_admin_user_new') }}">tutaj</a> żeby dodać konto użytkownika!</h4>
                 </td>
             </tr>
         {% endfor %}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <title>EngiShop</title>
+
+    {# CSS #}
+    <link href="/resources/bower_components/bootstrap/dist/css/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="/resources/css/select2.css" type="text/css" rel="stylesheet" />
+    <link href="/resources/css/select2-bootstrap.css" type="text/css" rel="stylesheet" />
+
+    <link href="/resources/css/style.css" type="text/css" rel="stylesheet" />
+    {# /CSS #}
+
+    {# JS #}
+    <script src="/resources/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/resources/js/select2.min.js"></script>
+    <script src="/resources/js/bootbox.min.js"></script>
+    {# /JS #}
+</head>
+<body>
+{% block body %}
+    {% block nav %}
+        {% include 'EngiShopBundle:_parts:nav.html.twig' %}
+    {% endblock nav %}
+
+    <div id="wrapper-main">
+    {% block header %}
+    {% endblock header %}
+
+    {% block content_main %}
+        <div class="row">
+            <div class="col-md-3">
+            {% block sidebar %}
+                <aside id="sidebar-main">
+                {% block categories %}
+                    <h4><span class="glyphicon glyphicon-list"></span> Kategorie</h4>
+                    <ul>
+                    {% set currentCategory = category is defined ? category : null %}
+                    {% for category in category_helper.activeCategories %}
+                        <li><a {% if currentCategory == category %} class="active"{% endif %} href="{{ path('engishop_front_category_show', {slug: category.slug}) }}">{{ category.name }} <span class="count-small">({{ category.activeProducts.count }})</span></a></li>
+                    {% endfor %}
+                    </ul>
+                {% endblock categories %}
+                </aside>
+            {% endblock sidebar %}
+            </div>
+            <div class="col-md-9">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    {% endblock content_main %}
+
+    {% block footer %}
+        <section id="footer">
+            <a href="{{ path('engishop_front_homepage') }}">{{ shop_url }}</a>
+            <div class="author">
+                <span>Autor: Michał Kurzeja</span>
+                <a href="mailto:mike.kurzeja@gmail.com">mike.kurzeja@gmail.com</a>
+            </div>
+        </section>
+    {% endblock footer %}
+    </div>
+{% endblock body %}
+</body>
+</html>

@@ -36,13 +36,54 @@ class User implements AdvancedUserInterface, \Serializable
     private $email;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $address2;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $zip;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $city;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $state;
+
+    /**
+     * @ORM\Column(type="string", length=2)
+     */
+    private $country;
+
+    /**
+     * @var bool
+     *
      * @ORM\Column(type="boolean")
      */
     private $isActive;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
     public function __construct()
     {
-        $this->setIsActive(true);
+        $this
+            ->setIsActive(true)
+            ->setCreatedAt(new \DateTime);
     }
 
     /**
@@ -130,6 +171,132 @@ class User implements AdvancedUserInterface, \Serializable
     public function setIsActive($isActive)
     {
         $this->isActive = $isActive;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return $this
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * @param mixed $address
+     * @return $this
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAddress2()
+    {
+        return $this->address2;
+    }
+
+    /**
+     * @param mixed $address2
+     * @return $this
+     */
+    public function setAddress2($address2)
+    {
+        $this->address2 = $address2;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getZip()
+    {
+        return $this->zip;
+    }
+
+    /**
+     * @param mixed $zip
+     * @return $this
+     */
+    public function setZip($zip)
+    {
+        $this->zip = $zip;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCity()
+    {
+        return $this->city;
+    }
+
+    /**
+     * @param mixed $city
+     * @return $this
+     */
+    public function setCity($city)
+    {
+        $this->city = $city;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * @param mixed $state
+     * @return $this
+     */
+    public function setState($state)
+    {
+        $this->state = $state;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCountry()
+    {
+        return $this->country;
+    }
+
+    /**
+     * @param mixed $country
+     * @return $this
+     */
+    public function setCountry($country)
+    {
+        $this->country = $country;
         return $this;
     }
 

@@ -12,4 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class CategoryRepository extends EntityRepository
 {
+    public function getActiveCategories()
+    {
+        return $this->findBy(['active' => true], ['name' => 'asc']);
+    }
 }

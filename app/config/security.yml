@@ -25,6 +25,22 @@ security:
             logout:
                 path:   engishop_admin_logout
                 target: /admin
+
+        front_login:
+            pattern:  ^/login$
+            security: false
+
+        front_area:
+            pattern: ^/
+            anonymous: true
+            provider: front
+            form_login:
+                login_path: engishop_front_login
+                check_path: engishop_front_login_check
+            logout:
+                path:   engishop_front_logout
+                target: /
+
         default:
             anonymous: ~
 

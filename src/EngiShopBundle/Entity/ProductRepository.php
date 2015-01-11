@@ -12,4 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProductRepository extends EntityRepository
 {
+    public function getActiveProducts()
+    {
+        return $this->findBy(['active' => true], ['name' => 'asc']);
+    }
 }

@@ -1,0 +1,69 @@
+EngiShopBundle\Entity\User:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: email
+            message: Ten email jest juz w użyciu.
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: username
+            message: Ta nazwa użytkownika jest juz zajęta.
+
+    properties:
+        email:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+            - Email:
+                message: To nie jest poprawny adres email.
+        username:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+            - Regex:
+                pattern: /^[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*$/
+                message: Nazwa użytkownika zawiera niepoprawne znaki.
+
+        address:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        zip:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        city:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        state:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        country:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+
+
+EngiShopBundle\Entity\Category:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+
+    properties:
+        slug:
+            - Regex:
+                message: Ta wartość nie jest poprawnym adresem.
+                pattern: /^[a-zA-Z0-9_\-\+]+$/
+
+EngiShopBundle\Entity\File:
+    properties:
+        name:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        file:
+            - File:
+                maxSize: 6000000
+
+EngiShopBundle\Entity\Product:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+
+    properties:
+        slug:
+            - NotNull:
+                message: Ta wartość nie powinna być pusta.
+            - Regex:
+                message: Ta wartość nie jest poprawnym adresem.
+                pattern: /^[a-zA-Z0-9_\-\+]+$/
