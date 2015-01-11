@@ -4,13 +4,15 @@ namespace EngiShopBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class IndexController extends Base\FrontController
+class AdminUserController extends Base\AdminController
 {
     /**
      * @Template
      */
     public function indexAction()
     {
-        return [];
+        return [
+            'users' => $this->getRepository('EngiShopBundle:User')->findAll()
+        ];
     }
 }

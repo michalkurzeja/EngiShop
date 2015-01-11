@@ -5,11 +5,10 @@ namespace EngiShopBundle\Controller;
 use EngiShopBundle\Form\Type\ProductType;
 use EngiShopBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdminProductController extends Controller
+class AdminProductController extends Base\AdminController
 {
     /**
      * @Template
@@ -17,7 +16,7 @@ class AdminProductController extends Controller
     public function indexAction()
     {
         return [
-            'products' => $this->getDoctrine()->getRepository('EngiShopBundle:Product')->findAll()
+            'products' => $this->getRepository('EngiShopBundle:Product')->findAll()
         ];
     }
 
@@ -32,36 +31,32 @@ class AdminProductController extends Controller
         $form = $this->createForm(new ProductType(), $product);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $this->getEm()->persist($product);
+            $this->getEm()->flush();
 
-            $em->persist($product);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('engishop_admin_product'));
+            return $this->redirectToRoute('engishop_admin_product');
         }
 
         return [
-            'form' => $form->createView(),
-            'product' => $product
+            'product' => $product,
+            'form' => $form->createView()
         ];
     }
 
     /**
      * @Template
      * @param Product $product
+     * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Product $product)
+    public function editAction(Product $product, Request $request)
     {
-        $request = $this->get('request');
         $form = $this->createForm(new ProductType(), $product);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+            $this->getEm()->flush();
 
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('engishop_admin_product'));
+            return $this->redirectToRoute('engishop_admin_product');
         }
 
         return [
@@ -77,9 +72,9 @@ class AdminProductController extends Controller
     public function toggleAction(Product $product)
     {
         $product->setActive(!$product->getActive());
-        $this->getDoctrine()->getManager()->flush();
+        $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl('engishop_admin_product'));
+        return $this->redirectToRoute('engishop_admin_product');
     }
 
     /**
@@ -88,10 +83,10 @@ class AdminProductController extends Controller
      */
     public function deleteAction(Product $product)
     {
-        $this->getDoctrine()->getManager()->remove($product);
-        $this->getDoctrine()->getManager()->flush();
+        $this->getEm()->remove($product);
+        $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl('engishop_admin_product'));
+        return $this->redirectToRoute('engishop_admin_product');
     }
 
     /**
@@ -101,7 +96,7 @@ class AdminProductController extends Controller
     public function deleteImageAction(Product $product)
     {
         $product->removeImage();
-        $this->getDoctrine()->getManager()->flush();
+        $this->getEm()->flush();
 
         return new JsonResponse(true);
     }

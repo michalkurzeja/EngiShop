@@ -6,6 +6,10 @@ engishop_admin_product:
     resource: "@EngiShopBundle/Resources/config/admin/product.yml"
     prefix:   /product
 
+engishop_admin_user:
+    resource: "@EngiShopBundle/Resources/config/admin/user.yml"
+    prefix:   /user
+
 engishop_admin_login:
     path:     /login
     defaults: { _controller: EngiShopBundle:AdminSecurity:login }

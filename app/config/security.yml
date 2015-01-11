@@ -1,9 +1,11 @@
 security:
     providers:
-        in_memory:
+        admin:
             memory:
                 users:
                     admin: { password: pass, roles: 'ROLE_ADMIN' }
+        front:
+            entity: { class: EngiShopBundle:User }
 
     firewalls:
         dev:
@@ -14,9 +16,9 @@ security:
             pattern:  ^/admin/login$
             security: false
 
-        secured_area:
+        admin_area:
             pattern:   ^/admin
-            provider: in_memory
+            provider: admin
             form_login:
                 login_path: engishop_admin_login
                 check_path: engishop_admin_login_check
@@ -27,7 +29,10 @@ security:
             anonymous: ~
 
     encoders:
-            Symfony\Component\Security\Core\User\User: plaintext
+        Symfony\Component\Security\Core\User\User: plaintext    # admin provider
+        EngiShopBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
 
     access_control:
         - { path: ^/admin/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }

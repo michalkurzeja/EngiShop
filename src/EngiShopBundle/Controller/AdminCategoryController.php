@@ -7,10 +7,9 @@ use EngiShopBundle\Form\Type\CategoryType;
 use EngiShopBundle\Entity\Category;
 use EngiShopBundle\Entity\Product;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-class AdminCategoryController extends Controller
+class AdminCategoryController extends Base\AdminController
 {
     /**
      * @Template
@@ -18,7 +17,7 @@ class AdminCategoryController extends Controller
     public function indexAction()
     {
         return [
-            'categories' => $this->getDoctrine()->getManager()->getRepository('EngiShopBundle:Category')->findAll()
+            'categories' => $this->getRepository('EngiShopBundle:Category')->findAll()
         ];
     }
 
@@ -29,16 +28,13 @@ class AdminCategoryController extends Controller
      */
     public function newAction(Request $request)
     {
-        $category = new Category();
-        $form = $this->createForm(new CategoryType(), $category);
+        $form = $this->createForm(new CategoryType());
 
         if ($form->handleRequest($request)->isValid()) {
-            /** @var EntityManager $em */
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
+            $this->getEm()->persist($form->getData());
+            $this->getEm()->flush();
 
-            return $this->redirect($this->generateUrl('engishop_admin_category'));
+            return $this->redirectToRoute('engishop_admin_category');
         }
 
         return [
@@ -49,18 +45,17 @@ class AdminCategoryController extends Controller
     /**
      * @Template
      * @param Category $category
+     * @param Request $request
      * @return array|\Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Category $category)
+    public function editAction(Category $category, Request $request)
     {
-        $request = $this->get('request');
         $form = $this->createForm(new CategoryType(), $category);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->getEm()->flush();
 
-            return $this->redirect($this->generateUrl('engishop_admin_category'));
+            return $this->redirectToRoute('engishop_admin_category');
         }
 
         return [
@@ -76,9 +71,9 @@ class AdminCategoryController extends Controller
     public function toggleAction(Category $category)
     {
         $category->setActive(!$category->isActive());
-        $this->getDoctrine()->getManager()->flush();
+        $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl('engishop_admin_category'));
+        return $this->redirectToRoute('engishop_admin_category');
     }
 
     /**
@@ -88,13 +83,11 @@ class AdminCategoryController extends Controller
     public function deleteAction(Category $category)
     {
         /** @var Product $product */
-        foreach ($category->getProducts() as $product) {
-            $product->setCategory(null);
-        }
+        foreach ($category->getProducts() as $product) $product->setCategory(null);
 
-        $this->getDoctrine()->getManager()->remove($category);
-        $this->getDoctrine()->getManager()->flush();
+        $this->getEm()->remove($category);
+        $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl('engishop_admin_category'));
+        return $this->redirectToRoute('engishop_admin_category');
     }
 } 
