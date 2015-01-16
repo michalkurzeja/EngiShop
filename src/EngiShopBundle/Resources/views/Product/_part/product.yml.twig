@@ -6,7 +6,9 @@
 
     <div class="flex-container product-bottom">
         <span class="price">{{ product.price | number_format(2, ',') }} PLN</span>
-        <button class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Do koszyka!</button>
+        <form action="{{ path('engishop_front_cart_add', {id: product.id}) }}" method="post">
+            <button type="submit" class="btn btn-xs btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Do koszyka!</button>
+        </form>
         <a href="{{ path('engishop_front_product_show', {slug: product.slug}) }}">Zobacz &raquo;</a>
     </div>
 </div>

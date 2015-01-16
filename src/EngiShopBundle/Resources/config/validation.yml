@@ -42,10 +42,39 @@ EngiShopBundle\Entity\Category:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
 
     properties:
+        name:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        description:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
         slug:
             - Regex:
                 message: Ta wartość nie jest poprawnym adresem.
                 pattern: /^[a-zA-Z0-9_\-\+]+$/
+
+EngiShopBundle\Entity\Product:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
+
+    properties:
+        name:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        description:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        descriptionExtended:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        slug:
+            - NotNull:
+                message: Ta wartość nie powinna być pusta.
+            - Regex:
+                message: Ta wartość nie jest poprawnym adresem.
+                pattern: /^[a-zA-Z0-9_\-\+]+$/
+            - EngiShopBundle\Validator\Constraints\NotEqualToArray:
+                value: [login, logout, login_check, cart, profile]
 
 EngiShopBundle\Entity\File:
     properties:
@@ -55,15 +84,3 @@ EngiShopBundle\Entity\File:
         file:
             - File:
                 maxSize: 6000000
-
-EngiShopBundle\Entity\Product:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: slug
-
-    properties:
-        slug:
-            - NotNull:
-                message: Ta wartość nie powinna być pusta.
-            - Regex:
-                message: Ta wartość nie jest poprawnym adresem.
-                pattern: /^[a-zA-Z0-9_\-\+]+$/

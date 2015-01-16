@@ -1,0 +1,55 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <h1>Koszyk ({{ cart.itemsQuantity }})</h1>
+
+    <form class="form-inline" action="{{ path('engishop_front_cart_set_quantity') }}" method="post">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Lp.</th>
+                    <th>Przedmiot</th>
+                    <th>Cena (szt.)</th>
+                    <th>Ilość</th>
+                    <th>Cena (razem)</th>
+                    <th class="col-narrow">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in cart.items %}
+                <tr>
+                    <td>#{{ loop.index }}</td>
+                    <td><a href="{{ path('engishop_front_product_show', {slug: item.product.slug}) }}">{{ item.name }}</a></td>
+                    <td>{{ item.price | number_format(2, ',') }} zł</td>
+                    <td>
+                        <input class="form-control input-narrow" type="number" min="0" name="quantity[{{ item.id }}]" title="Quantity" value="{{ item.quantity }}">
+                    </td>
+                    <td>{{ item.total | number_format(2, ',') }} zł</td>
+                    <td>
+                        <form action="" method="post">
+                            <button type="submit" class="btn btn-link pull-right"><span class="glyphicon glyphicon-trash"></span></button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td><span class="bold">Razem:</span></td>
+                    <td><span class="bold">{{ cart.itemsQuantity }}</span></td>
+                    <td><span class="bold">{{ cart.total | number_format(2, ',') }} zł</span></td>
+                    <td>
+                        <button type="submit" class="btn btn-warning btn-sm">Przelicz ilość</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <div class="pull-right">
+        <a href="{{ path('engishop_front_category') }}">wróć do zakupów</a>
+        <span>albo</span>
+        <a href="" class="btn btn-success">Złóż zamówienie! <span class="glyphicon glyphicon-chevron-right"></span></a>
+    </div>
+
+    <div class="clearfix"></div>
+{% endblock content_main %}

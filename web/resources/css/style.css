@@ -8,11 +8,13 @@ a:focus {
 
 /* Helper Classes */
 .bold { font-weight:bold }
+.inline { display: inline }
 .inline-block { display: inline-block }
 .contain-floats { overflow:hidden }
 .field-wrap { overflow: hidden; margin: 10px 0; }
 .toggle { cursor: pointer }
 .flex-container { display: flex }
+.col-narrow { width: 1px }
 /* -------------- */
 
 .navbar {
@@ -148,7 +150,7 @@ h1.toggle:hover {
 }
 
 .product {
-    width: 250px;
+    width: 300px;
 }
 
 .product img {
@@ -172,4 +174,20 @@ h1.toggle:hover {
 .product-bottom > * {
     flex-grow: 1;
     padding: 0 5px;
+}
+
+.price-box {
+    margin-top: 20px;
+}
+
+.price {
+    font-weight: bold;
+}
+
+.add-to-cart {
+    margin-top: 20px;
+}
+
+.form-control.input-narrow {
+    width: 70px
 }

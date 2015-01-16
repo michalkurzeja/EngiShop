@@ -46,6 +46,13 @@ class Product
     private $description;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="descriptionExtended", type="text")
+     */
+    private $descriptionExtended;
+
+    /**
      * @var float
      *
      * @ORM\Column(name="price", type="float")
@@ -159,6 +166,24 @@ class Product
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionExtended()
+    {
+        return $this->descriptionExtended;
+    }
+
+    /**
+     * @param string $descriptionExtended
+     * @return $this
+     */
+    public function setDescriptionExtended($descriptionExtended)
+    {
+        $this->descriptionExtended = $descriptionExtended;
+        return $this;
     }
 
     /**

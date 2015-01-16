@@ -79,6 +79,13 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $createdAt;
 
+    /**
+     * @var Cart
+     *
+     * @ORM\OneToOne(targetEntity="Cart", mappedBy="user")
+     */
+    private $cart;
+
     public function __construct()
     {
         $this
@@ -333,6 +340,24 @@ class User implements AdvancedUserInterface, \Serializable
     public function isEnabled()
     {
         return $this->getIsActive();
+    }
+
+    /**
+     * @return Cart
+     */
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
+    /**
+     * @param Cart $cart
+     * @return $this
+     */
+    public function setCart(Cart $cart)
+    {
+        $this->cart = $cart;
+        return $this;
     }
 
     /**

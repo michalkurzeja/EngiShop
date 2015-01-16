@@ -15,18 +15,18 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name', 'text', [
-                'label' => 'Nazwa',
-                'constraints' => [
-                    new NotBlank(['message' => 'Ta wartość nie powinna być pusta.'])
-                ]
+                'label' => 'Nazwa'
             ])
             ->add('description', 'textarea', [
                 'label' => 'Opis',
                 'attr' => [
                     'rows' => 10
-                ],
-                'constraints' => [
-                    new NotBlank(['message' => 'Ta wartość nie powinna być pusta.'])
+                ]
+            ])
+            ->add('descriptionExtended', 'textarea', [
+                'label' => 'Rozszerzony opis',
+                'attr' => [
+                    'rows' => 10
                 ]
             ])
             ->add('price', 'number', [

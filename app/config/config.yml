@@ -34,6 +34,7 @@ twig:
     globals:
         shop_url: %shop_url%
         category_helper: @engishop.category_helper
+        cart_helper: @engishop.cart_helper
         # resources: ['bootstrap_3_horizontal_layout.html.twig']
 
 # Assetic Configuration

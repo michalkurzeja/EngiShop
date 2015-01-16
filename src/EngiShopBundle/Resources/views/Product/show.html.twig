@@ -3,14 +3,26 @@
 {% block content %}
     <div class="product-header">
         <h1>{{ product.name }}</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <p class="description">{{ product.description }}</p>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <p class="description">{{ product.description | nl2br }}</p>
+            <div class="price-box">
+                <span class="price-label">Cena:</span>
+                <span class="price">{{ product.price | number_format(2, ',') }} PLN</span>
             </div>
-            <div class="col-md-6">
-                <img src="/{{ product.imagePath }}" class="thumbnail" width="600">
+            <div class="add-to-cart">
+                <form action="{{ path('engishop_front_cart_add', {id: product.id}) }}" method="post">
+                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Dodaj do koszyka!</button>
+                </form>
             </div>
         </div>
+        <div class="col-md-6">
+            <img src="/{{ product.imagePath }}" class="thumbnail" width="600">
+        </div>
+    </div>
+    <div class="row">
+        <p class="description">{{ product.descriptionExtended | nl2br }}</p>
     </div>
 {% endblock %}
 

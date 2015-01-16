@@ -6,6 +6,10 @@ engishop_front_product:
     resource: "@EngiShopBundle/Resources/config/front/product.yml"
     prefix:   /
 
+engishop_front_cart:
+    resource: "@EngiShopBundle/Resources/config/front/cart.yml"
+    prefix:   /cart
+
 engishop_front_login:
     path:     /login
     defaults: { _controller: EngiShopBundle:Security:login }

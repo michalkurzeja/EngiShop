@@ -6,14 +6,7 @@
     <form class="contain-floats" action="{{ path('engishop_admin_product_edit', { 'id': product.id }) }}" method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
 
-        {{ form_row(form.name) }}
-        {{ form_row(form.description) }}
-        {{ form_row(form.price) }}
-        {{ form_row(form.slug) }}
-        {{ form_row(form.category) }}
-        {{ form_row(form.featured) }}
-        {{ form_row(form.active) }}
-        {{ form_widget(form.image) }}
+        {{ form_rest(form) }}
 
         {% if product.image %}
             <div id="img-preview">
@@ -24,8 +17,6 @@
                 </div>
             </div>
         {% endif %}
-
-        {{ form_rest(form) }}
 
         <div class="col-lg-offset-3 col-lg-8">
             <div class="buttons-wrap inline-block">

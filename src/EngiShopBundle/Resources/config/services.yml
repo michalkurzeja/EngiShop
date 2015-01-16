@@ -1,3 +1,6 @@
+parameters:
+    security.exception_listener.class: EngiShopBundle\Security\Firewall\ExceptionListener
+
 services:
     twig.extension.text:
          class: Twig_Extensions_Extension_Text
@@ -13,3 +16,9 @@ services:
         class: EngiShopBundle\Services\CategoryHelper
         arguments:
             - @doctrine.orm.entity_manager
+
+    engishop.cart_helper:
+        class: EngiShopBundle\Services\CartHelper
+        arguments:
+            - @security.authorization_checker
+            - @security.token_storage

@@ -1,0 +1,14 @@
+engishop_front_cart:
+    path: /
+    defaults: { _controller: EngiShopBundle:Cart:index }
+
+engishop_front_cart_add:
+    path: /add/{id}
+    defaults: { _controller: EngiShopBundle:Cart:add }
+    requirements:
+        id: \d+
+
+engishop_front_cart_set_quantity:
+    path: /set-quantity
+    defaults: { _controller: EngiShopBundle:Cart:setQuantity }
+

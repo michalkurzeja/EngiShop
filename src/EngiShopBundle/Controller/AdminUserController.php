@@ -15,7 +15,7 @@ class AdminUserController extends Base\AdminController
     public function indexAction()
     {
         return [
-            'users' => $this->getRepository('EngiShopBundle:User')->findAll()
+            'users' => $this->getEm()->getRepository('EngiShopBundle:User')->findAll()
         ];
     }
 
