@@ -11,9 +11,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('username', 'text', [
-                'label' => 'Nazwa użytkownika'
-            ])
+            ->add('username', 'text', ['label' => 'Nazwa użytkownika'])
             ->add('email')
             ->add('password', 'repeated', [
                 'type' => 'password',
@@ -22,12 +20,17 @@ class UserType extends AbstractType
                 'second_options' => ['label' => 'Powtórz hasło'],
                 'required' => !$options['edit']
             ])
-            ->add('address')
-            ->add('address2')
-            ->add('zip')
-            ->add('city')
-            ->add('state')
-            ->add('country', 'country')
+            ->add('firstName', 'text', ['label' => 'Imię'])
+            ->add('lastName', 'text', ['label' => 'Nazwisko'])
+            ->add('address', 'text', ['label' => 'Adres'])
+            ->add('address2', 'text', ['label' => 'Adres c. d.'])
+            ->add('zip', 'text', ['label' => 'Kod pocztowy'])
+            ->add('city', 'text', ['label' => 'Miasto'])
+            ->add('state', 'text', ['label' => 'Województwo'])
+            ->add('country', 'country', [
+                'label' => 'Kraj',
+                'data' => $options['edit'] ? $builder->getForm()->getData()->getCountry() : 'PL'
+            ])
             ->add('isActive', 'checkbox', [
                 'required' => false,
                 'label' => 'Aktywny?'

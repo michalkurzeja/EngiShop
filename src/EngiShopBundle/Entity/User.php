@@ -2,6 +2,7 @@
 
 namespace EngiShopBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
@@ -34,6 +35,16 @@ class User implements AdvancedUserInterface, \Serializable
      * @ORM\Column(type="string", length=60, unique=true)
      */
     private $email;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $lastName;
 
     /**
      * @ORM\Column(type="string")
@@ -86,11 +97,19 @@ class User implements AdvancedUserInterface, \Serializable
      */
     private $cart;
 
+    /**
+     * @var ArrayCollection
+     *
+     * @ORM\OneToMany(targetEntity="OrderClass", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "remove"}, orphanRemoval=true)
+     */
+    private $orders;
+
     public function __construct()
     {
         $this
             ->setIsActive(true)
-            ->setCreatedAt(new \DateTime);
+            ->setCreatedAt(new \DateTime)
+            ->setOrders(new ArrayCollection());
     }
 
     /**
@@ -196,6 +215,42 @@ class User implements AdvancedUserInterface, \Serializable
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * @param mixed $firstName
+     * @return User
+     */
+    public function setFirstName($firstName)
+    {
+        $this->firstName = $firstName;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * @param mixed $lastName
+     * @return User
+     */
+    public function setLastName($lastName)
+    {
+        $this->lastName = $lastName;
         return $this;
     }
 
@@ -357,6 +412,44 @@ class User implements AdvancedUserInterface, \Serializable
     public function setCart(Cart $cart)
     {
         $this->cart = $cart;
+        return $this;
+    }
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+    /**
+     * @param OrderClass $order
+     * @return $this
+     */
+    public function addOrder(OrderClass $order)
+    {
+        if (!$this->orders->contains($order)) $this->orders->add($order);
+        return $this;
+    }
+
+    /**
+     * @param OrderClass $order
+     * @return $this
+     */
+    public function removeOrder(OrderClass $order)
+    {
+        $this->orders->removeElement($order);
+        return $this;
+    }
+
+    /**
+     * @param ArrayCollection $orders
+     * @return User
+     */
+    public function setOrders(ArrayCollection $orders)
+    {
+        $this->orders = $orders;
         return $this;
     }
 

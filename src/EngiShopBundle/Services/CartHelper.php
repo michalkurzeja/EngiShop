@@ -65,7 +65,7 @@ class CartHelper
     /**
      * @return Cart
      */
-    private function getCart()
+    public function getCart()
     {
        if (!$this->authChecker->isGranted('ROLE_USER')) {
            throw new AccessDeniedException;
@@ -80,13 +80,5 @@ class CartHelper
         }
 
         return $cart;
-    }
-
-    private function hasAccessToItem(CartItem $item)
-    {
-        /** @var User $user */
-        $user = $this->tokenStorage->getToken()->getUser();
-
-        return $item->getCart()->getUser() == $user;
     }
 }

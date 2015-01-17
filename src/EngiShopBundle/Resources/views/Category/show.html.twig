@@ -6,7 +6,7 @@
             {{ category.name }}
             <button class="btn btn-link btn-xs pull-right">Zwiń <span class="glyphicon glyphicon-collapse-up"></span></button>
         </h1>
-        <p class="description">{{ category.description }}</p>
+        <p class="description">{{ category.description | nl2br }}</p>
     </div>
 
     <ul class="product-list">

@@ -26,9 +26,7 @@
                     </td>
                     <td>{{ item.total | number_format(2, ',') }} zł</td>
                     <td>
-                        <form action="" method="post">
-                            <button type="submit" class="btn btn-link pull-right"><span class="glyphicon glyphicon-trash"></span></button>
-                        </form>
+                        <button type="submit" class="btn btn-link pull-right btn-delete" data-target-name="quantity[{{ item.id }}]"><span class="glyphicon glyphicon-trash"></span></button>
                     </td>
                 </tr>
             {% endfor %}
@@ -46,10 +44,38 @@
     </form>
 
     <div class="pull-right">
-        <a href="{{ path('engishop_front_category') }}">wróć do zakupów</a>
+        <a class="btn btn-default" href="{{ path('engishop_front_category') }}"><span class="glyphicon glyphicon-chevron-left"></span> Wróć do zakupów</a>
         <span>albo</span>
         <a href="" class="btn btn-success">Złóż zamówienie! <span class="glyphicon glyphicon-chevron-right"></span></a>
     </div>
 
     <div class="clearfix"></div>
+
+    <script type="text/javascript">
+        $(function() {
+            $('.btn-delete').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć ten produkt?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').find('input[name="' + $btn.data('target-name') + '"]').val(0).end().submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
 {% endblock content_main %}

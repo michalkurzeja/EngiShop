@@ -14,7 +14,7 @@ class CartController extends Base\FrontController
     public function indexAction()
     {
         return [
-            'cart' => $this->getUser()->getCart()
+            'cart' => $this->get('engishop.cart_helper')->getCart()
         ];
     }
 

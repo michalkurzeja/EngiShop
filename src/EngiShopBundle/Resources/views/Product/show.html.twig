@@ -7,14 +7,16 @@
     <div class="row">
         <div class="col-md-6">
             <p class="description">{{ product.description | nl2br }}</p>
-            <div class="price-box">
-                <span class="price-label">Cena:</span>
-                <span class="price">{{ product.price | number_format(2, ',') }} PLN</span>
-            </div>
-            <div class="add-to-cart">
-                <form action="{{ path('engishop_front_cart_add', {id: product.id}) }}" method="post">
-                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Dodaj do koszyka!</button>
-                </form>
+            <div class="bordered-box">
+                <div class="price-box">
+                    <span class="price-label">Cena:</span>
+                    <span class="price">{{ product.price | number_format(2, ',') }} PLN</span>
+                </div>
+                <div class="add-to-cart">
+                    <form action="{{ path('engishop_front_cart_add', {id: product.id}) }}" method="post">
+                        <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Dodaj do koszyka!</button>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="col-md-6">
@@ -22,7 +24,9 @@
         </div>
     </div>
     <div class="row">
-        <p class="description">{{ product.descriptionExtended | nl2br }}</p>
+        <div class="col-md-12">
+            <p class="description">{{ product.descriptionExtended | nl2br }}</p>
+        </div>
     </div>
 {% endblock %}
 
