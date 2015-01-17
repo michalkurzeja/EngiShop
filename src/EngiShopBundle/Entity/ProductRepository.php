@@ -16,4 +16,9 @@ class ProductRepository extends EntityRepository
     {
         return $this->findBy(['active' => true], ['name' => 'asc']);
     }
+
+    public function getFeaturedProducts()
+    {
+        return $this->findBy(['active' => true, 'featured' => true], ['name' => 'asc']);
+    }
 }

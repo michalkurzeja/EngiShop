@@ -1,0 +1,6 @@
+<div class="post">
+    <h2 class="inline-block"><a href="{{ path('engishop_front_post_show', {id: post.id}) }}">{{ post.title }}</a></h2>
+    <span class="published-at">Opublikowano: {{ post.createdAt | localizeddate('long') }}</span>
+    <p class="description-elipsis">{{ post.summary }}</p>
+    <a href="{{ path('engishop_front_post_show', {id: post.id}) }}">Zobacz całość &raquo;</a>
+</div>

@@ -120,3 +120,15 @@ EngiShopBundle\Entity\DiscountCode:
                 minMessage: Ta wartość powinna być większa bądź równa 1%.
                 maxMessage: Ta wartość powinna być mniejsza bądź równa 100%.
                 invalidMessage: Ta wartość powinna być liczbą.
+
+EngiShopBundle\Entity\Post:
+    properties:
+        title:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        summary:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.
+        content:
+            - NotBlank:
+                message: Ta wartość nie powinna być pusta.

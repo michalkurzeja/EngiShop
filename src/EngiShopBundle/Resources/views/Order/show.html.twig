@@ -1,6 +1,86 @@
 {% extends 'EngiShopBundle::layout.html.twig' %}
 
 {% block content_main %}
+    <h1 class="inline-block">Szczegóły zamówienia #{{ order.id }} </h1>
+    <div class="pull-right">
+        <h1 class="inline-block">Status: {% if order.completed %}<span class="label label-success">Zakończone</span>{% elseif order.inProcess %}<span class="label label-primary">W realizacji</span>{% else %}<span class="label label-warning">Oczekuje</span>{% endif %}</h1>
+    </div>
+
+    <h4>Złożone: <span class="glyphicon glyphicon-calendar"></span> {{ order.createdAt | localizeddate('long', 'none') }} <strong style="margin-left: 10px"><span class="glyphicon glyphicon-time"></span> {{ order.createdAt | date('H:i') }}</strong></h4>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Zamawiający:</h2>
+
+            <div class="user-details">
+                <span class="user-name">{{ order.user.firstName }} {{ order.user.lastName }}</span>
+                <span>{{ order.user }} (<a href="mailto:{{ order.user.email }}">{{ order.user.email }}</a>)</span>
+                <span>{{ order.user.address }} {{ order.user.address2 }}</span>
+                <span>{{ order.user.zip }} {{ order.user.city }}</span>
+                <span>{{ order.user.country | country(app.request.locale) }}</span>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h2>Adres dostawy:</h2>
+
+            <div class="user-details">
+                <span class="user-name">{{ order.firstName }} {{ order.lastName }}</span>
+                <span>{{ order.user }} (<a href="mailto:{{ order.user.email }}">{{ order.user.email }}</a>)</span>
+                <span>{{ order.address }} {{ order.address2 }}</span>
+                <span>{{ order.zip }} {{ order.city }}</span>
+                <span>{{ order.country | country(app.request.locale) }}</span>
+            </div>
+        </div>
+    </div>
+
+    <h2>Przedmioty:</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Lp.</th>
+            <th>Przedmiot</th>
+            <th>Cena (szt.)</th>
+            <th>Ilość</th>
+            <th>Cena (razem)</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for item in order.items %}
+            <tr>
+                <td>#{{ loop.index }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.price | number_format(2, ',') }} zł</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.total | number_format(2, ',') }} zł</td>
+            </tr>
+        {% endfor %}
+        {% if order.discount > 0 %}
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td>Razem:</td>
+                <td>{{ order.itemsQuantity }}</td>
+                <td>{{ order.total | number_format(2, ',') }} zł</td>
+            </tr>
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td><span class="discount">Zniżka:</span></td>
+                <td><span class="discount">-</span></td>
+                <td><span class="discount">-{{ order.discount * 100 }}%</span></td>
+            </tr>
+        {% endif %}
+        <tr>
+            <td colspan="2">&nbsp;</td>
+            <td><span class="bold">Razem:</span></td>
+            <td><span class="bold">{{ order.itemsQuantity }}</span></td>
+            <td><span class="bold">{{ order.totalWithDiscount | number_format(2, ',') }} zł</span></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="pull-right">
+        <a class="btn btn-default" href="{{ path('engishop_front_user_show') }}"><span class="glyphicon glyphicon-chevron-left"></span> Powrót</a>
+    </div>
 
 {% endblock %}
 

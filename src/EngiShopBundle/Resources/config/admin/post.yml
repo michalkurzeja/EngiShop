@@ -1,0 +1,19 @@
+engishop_admin_post:
+    path: /
+    defaults: { _controller: EngiShopBundle:AdminPost:index }
+
+engishop_admin_post_new:
+    path: /new
+    defaults: { _controller: EngiShopBundle:AdminPost:new }
+
+engishop_admin_post_edit:
+    path: /edit/{id}
+    defaults: { _controller: EngiShopBundle:AdminPost:edit }
+    requirements:
+        id: \d+
+
+engishop_admin_post_delete:
+    path: /delete/{id}
+    defaults: { _controller: EngiShopBundle:AdminPost:delete }
+    requirements:
+        id: \d+

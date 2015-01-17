@@ -1,1 +1,21 @@
 {% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Witamy w EngiShop!</h1>
+    <h3>Co u nas słychać?</h3>
+    <ul class="post-list">
+        {% for post in posts %}
+            <li>
+                {% include('@EngiShop/Post/_parts/post.html.twig') with {post: post} %}
+            </li>
+        {% endfor %}
+    </ul>
+    <h3>Polecane produkty:</h3>
+    <ul class="product-list">
+        {% for product in products %}
+            <li>
+                {% include('EngiShopBundle:Product/_part:product.yml.twig') with {product: product} %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

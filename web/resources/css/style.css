@@ -122,7 +122,8 @@ td.actions {
 }
 
 .category-list,
-.product-list {
+.product-list,
+.post-list {
     list-style-type: none;
     padding: 0;
 }
@@ -133,8 +134,14 @@ td.actions {
     margin-right: 10px;
 }
 
-.category-list li:last-child {
+.category-list li:last-child,
+.product-list li:last-child {
     margin-right: 0;
+}
+
+.post-list li+li {
+    border-top: 1px solid #ddd;
+    margin-top: 20px;
 }
 
 .category {
@@ -224,4 +231,22 @@ h1.toggle:hover {
 .edit-profile {
     margin-left: 10px;
     margin-top: 5px;
+}
+
+div.post+div.post {
+    border-top: 1px solid #ddd;
+}
+
+.published-at {
+    font-style: italic;
+    font-size: 0.8em;
+    float: right;
+    color: #888;
+    margin-top: 20px;
+}
+
+.summary {
+    font-style: italic;
+    font-size: 0.9em;
+    color: #888;
 }

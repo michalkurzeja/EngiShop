@@ -36,7 +36,7 @@
                 {% block categories %}
                     <h4><span class="glyphicon glyphicon-list"></span> Kategorie</h4>
                     <ul>
-                    {% set currentCategory = category is defined ? category : null %}
+                    {% set currentCategory = (category is defined ? category : (product is defined ? product.category : null)) %}
                     {% for category in category_helper.activeCategories %}
                         <li><a {% if currentCategory == category %} class="active"{% endif %} href="{{ path('engishop_front_category_show', {slug: category.slug}) }}">{{ category.name }} <span class="count-small">({{ category.activeProducts.count }})</span></a></li>
                     {% endfor %}

@@ -1,0 +1,13 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content %}
+    <h1>Blog</h1>
+
+    <ul class="post-list">
+        {% for post in posts %}
+            <li>
+                {% include('@EngiShop/Post/_parts/post.html.twig') with {post: post} %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

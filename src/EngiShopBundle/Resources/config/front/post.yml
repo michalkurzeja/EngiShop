@@ -1,0 +1,9 @@
+engishop_front_post:
+    path: /
+    defaults: { _controller: EngiShopBundle:Post:index }
+
+engishop_front_post_show:
+    path: /{id}
+    defaults: { _controller: EngiShopBundle:Post:show }
+    requirements:
+        id: \d+

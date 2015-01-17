@@ -11,6 +11,9 @@ class IndexController extends Base\FrontController
      */
     public function indexAction()
     {
-        return [];
+        return [
+            'posts' => $this->getEm()->getRepository('EngiShopBundle:Post')->getFeaturedPosts(),
+            'products' => $this->getEm()->getRepository('EngiShopBundle:Product')->getFeaturedProducts()
+        ];
     }
 }

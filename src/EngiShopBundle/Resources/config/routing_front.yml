@@ -18,6 +18,10 @@ engishop_front_user:
     resource: "@EngiShopBundle/Resources/config/front/user.yml"
     prefix:   /konto
 
+engishop_front_post:
+    resource: "@EngiShopBundle/Resources/config/front/post.yml"
+    prefix: /blog
+
 
 
 engishop_front_user_register:

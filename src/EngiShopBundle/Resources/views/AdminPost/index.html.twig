@@ -1,0 +1,73 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
+{% block header %}
+    <h1>Posty</h1>
+{% endblock header %}
+
+{% block content %}
+    <div>
+        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_post_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy post</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Tytuł</th>
+            <th>Na głównej</th>
+            <th>Utworzono</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for post in posts %}
+            <tr>
+                <td>#{{ post.id }}</td>
+                <td>{{ post.title }}</td>
+                <td>{% if post.featured %}<span class="label label-success">Tak</span>{% else %}<span class="label label-danger">Nie</span>{% endif %}</td>
+                <td><span class="glyphicon glyphicon-calendar"></span> {{ post.createdAt | localizeddate('long', 'none') }} <strong style="margin-left: 10px"><span class="glyphicon glyphicon-time"></span> {{ post.createdAt | date('H:i') }}</strong></td>
+                <td class="actions">
+                    <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_post_edit', {'id': post.id}) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+                    <form class="inline-block" action="{{ path('engishop_admin_post_delete', { 'id': post.id}) }}" method="post">
+                        <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr class="table-empty-row">
+                <td colspan="7">
+                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych postów! Kliknij <a href="{{ path('engishop_admin_post_new') }}">tutaj</a> aby utworzyć nowy post.</h4>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(function() {
+            $('button.delete').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć ten post?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock content %}
