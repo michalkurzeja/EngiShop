@@ -1,0 +1,70 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
+{% block header %}
+    <h1>Kody Zniżkowe</h1>
+{% endblock header %}
+
+{% block content %}
+    <div>
+        <a class="btn btn-primary pull-right" href="{{ path('engishop_admin_discount_code_new') }}"><span class="glyphicon glyphicon-plus"></span> Nowy kod</a>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Kod</th>
+                <th>Zniżka</th>
+                <th>Status</th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for code in codes %}
+            <tr>
+                <td>{{ code.id }}</td>
+                <td>{{ code.code }}</td>
+                <td>{{ code.discount * 100 }}%</td>
+                <td>{% if code.active %}<span class="label label-success">Aktywny</span>{% else %}<span class="label label-danger">Nieaktywny</span>{% endif %}</td>
+                <td class="actions">
+                    <form class="inline-block" action="{{ path('engishop_admin_discount_code_toggle', { 'id': code.id }) }}" method="post">
+                        <button type="submit" class="btn btn-{% if code.active %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if code.active %}ban{% else %}ok{% endif %}-circle"></span> {% if code.active %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
+                    </form>
+                    <a class="btn btn-warning btn-xs" href="{{ path('engishop_admin_discount_code_edit', { 'id': code.id }) }}"><span class="glyphicon glyphicon-pencil"></span> Edytuj</a>
+                    <form class="inline-block" action="{{ path('engishop_admin_discount_code_delete', { 'id': code.id }) }}" method="post">
+                        <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(function() {
+            $('button.delete').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć ten produkt?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock content %}

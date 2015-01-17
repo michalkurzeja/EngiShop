@@ -84,6 +84,13 @@ class OrderClass
     private $createdAt;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(type="float")
+     */
+    private $discount;
+
+    /**
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="OrderItem", mappedBy="order", fetch="EXTRA_LAZY", cascade={"persist", "remove"}, orphanRemoval=true)
@@ -93,18 +100,24 @@ class OrderClass
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders", fetch="EAGER")
      */
     private $user;
 
     public function __construct(User $user)
     {
         $this
+            ->setCreatedAt(new \DateTime())
+            ->setInProcess(false)
+            ->setCompleted(false)
+            ->setDiscount(0)
             ->setUser($user)
             ->setItems(new ArrayCollection());
 
         /** @var CartItem $item */
-        foreach ($user->getCart() as $item) $this->addItem(new OrderItem($item));
+        foreach ($user->getCart()->getItems() as $item) {
+            $this->addItem(new OrderItem($item));
+        }
     }
 
     /**
@@ -331,6 +344,24 @@ class OrderClass
     }
 
     /**
+     * @return string
+     */
+    public function getDiscount()
+    {
+        return $this->discount;
+    }
+
+    /**
+     * @param string $discount
+     * @return OrderClass
+     */
+    public function setDiscount($discount)
+    {
+        $this->discount = $discount;
+        return $this;
+    }
+
+    /**
      * @return ArrayCollection
      */
     public function getItems()
@@ -370,6 +401,32 @@ class OrderClass
     {
         $this->items = $items;
         return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getItemsQuantity()
+    {
+        $count = 0;
+
+        /** @var CartItem $item */
+        foreach ($this->getItems() as $item) $count += $item->getQuantity();
+
+        return $count;
+    }
+
+    /**
+     * @return float
+     */
+    public function getTotal()
+    {
+        $total = 0;
+
+        /** @var CartItem $item */
+        foreach ($this->getItems() as $item) $total += $item->getTotal();
+
+        return $total;
     }
 
     /**

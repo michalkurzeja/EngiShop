@@ -22,3 +22,4 @@ services:
         arguments:
             - @security.authorization_checker
             - @security.token_storage
+            - @doctrine.orm.entity_manager

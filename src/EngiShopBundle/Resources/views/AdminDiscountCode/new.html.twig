@@ -1,0 +1,21 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
+{% block header%}
+    <h1>Nowy Kod Zniżkowy</h1>
+{% endblock %}
+
+{% block content %}
+    <form class="contain-floats" action="{{ path('engishop_admin_discount_code_new') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        {{ form_rest(form) }}
+
+        <div class="col-lg-offset-3 col-lg-8">
+            <div class="buttons-wrap inline-block">
+                <a href="{{ path('engishop_admin_discount_code') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                <button type="submit" class="btn btn-primary">Dodaj <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+

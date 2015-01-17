@@ -3,6 +3,7 @@
 {% block content_main %}
     <h1>Koszyk ({{ cart.itemsQuantity }})</h1>
 
+    {% if cart.itemsQuantity %}
     <form class="form-inline" action="{{ path('engishop_front_cart_set_quantity') }}" method="post">
         <table class="table">
             <thead>
@@ -43,11 +44,24 @@
         </table>
     </form>
 
-    <div class="pull-right">
-        <a class="btn btn-default" href="{{ path('engishop_front_category') }}"><span class="glyphicon glyphicon-chevron-left"></span> Wróć do zakupów</a>
-        <span>albo</span>
-        <a href="" class="btn btn-success">Złóż zamówienie! <span class="glyphicon glyphicon-chevron-right"></span></a>
-    </div>
+    <form class="pull-right" action="{{ path('engishop_front_order_new') }}" method="post">
+        <label class="pull-right discount-input">
+            Kod zniżkowy:
+            <input type="text" name="discountCode" class="form-control">
+        </label>
+
+        <div >
+            <a class="btn btn-default" href="{{ path('engishop_front_category') }}"><span class="glyphicon glyphicon-chevron-left"></span> Wróć do zakupów</a>
+            <span>albo</span>
+            <button type="submit" class="btn btn-primary">Złóż zamówienie! <span class="glyphicon glyphicon-chevron-right"></span></button>
+        </div>
+    </form>
+    {% else %}
+        <div class="center-content">
+            <h2>Twój koszyk jest pusty!</h2>
+            <a class="btn btn-primary" href="{{ path('engishop_front_category') }}"><span class="glyphicon glyphicon-chevron-left"></span> Wróć do zakupów</a>
+        </div>
+    {% endif %}
 
     <div class="clearfix"></div>
 

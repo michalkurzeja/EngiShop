@@ -10,6 +10,7 @@ a:focus {
 .bold { font-weight:bold }
 .inline { display: inline }
 .inline-block { display: inline-block }
+.center-content { text-align: center }
 .contain-floats { overflow:hidden }
 .field-wrap { overflow: hidden; margin: 10px 0; }
 .toggle { cursor: pointer }
@@ -190,4 +191,13 @@ h1.toggle:hover {
 
 .form-control.input-narrow {
     width: 70px
+}
+
+.discount-input {
+    margin-bottom: 50px;
+}
+
+.discount {
+    color: #008614;
+    font-weight: bold;
 }

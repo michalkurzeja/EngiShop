@@ -28,3 +28,35 @@
         <input type="text" class="form-control" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
     </div>
 {% endblock _engishop_category_slug_widget %}
+
+{% block _engishop_discount_code_code_widget %}
+    <div class="row">
+        <div class="col-md-10">
+            <input type="text" class="form-control" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        </div>
+        <div class="col-md-2">
+            <button type="button" id="{{ id }}-generate" class="btn btn-default"><span class="glyphicon glyphicon-repeat"></span> Wygeneruj</button>
+        </div>
+    </div>
+    <script>
+        $(function() {
+            var $input = $('#{{ id }}');
+
+            $('#{{ id }}-generate').click(function() {
+                $input.val(generate(15));
+                return false;
+            });
+
+            function generate(length)
+            {
+                var chars = [];
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                for( var i=0; i < length; i++ )
+                    chars.push(possible.charAt(Math.floor(Math.random() * possible.length)));
+
+                return chars.join('');
+            }
+        });
+    </script>
+{% endblock _engishop_discount_code_code_widget %}

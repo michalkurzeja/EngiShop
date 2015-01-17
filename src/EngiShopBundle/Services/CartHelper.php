@@ -2,6 +2,7 @@
 
 namespace EngiShopBundle\Services;
 
+use Doctrine\ORM\EntityManager;
 use EngiShopBundle\Entity\Cart;
 use EngiShopBundle\Entity\CartItem;
 use EngiShopBundle\Entity\Product;
@@ -16,11 +17,14 @@ class CartHelper
     private $authChecker;
     /** @var TokenStorageInterface */
     private $tokenStorage;
+    /** @var EntityManager */
+    private $entityManager;
 
-    public function __construct(AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage)
+    public function __construct(AuthorizationCheckerInterface $authChecker, TokenStorageInterface $tokenStorage, EntityManager $entityManager)
     {
         $this->authChecker = $authChecker;
         $this->tokenStorage = $tokenStorage;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -57,9 +61,27 @@ class CartHelper
         }
     }
 
+    /**
+     * @return int
+     */
     public function getItemCount()
     {
         return $this->getCart()->getItemsQuantity();
+    }
+
+    /**
+     * @param $code
+     * @return float
+     */
+    public function getDiscount($code)
+    {
+        if (!$code) return 0;
+
+        $discountCode = $this->entityManager->getRepository('EngiShopBundle:DiscountCode')->findOneBy(['code' => $code]);
+
+        if (!$discountCode) return 0;
+
+        return $discountCode->getDiscount();
     }
 
     /**

@@ -96,6 +96,12 @@ class Cart
         return $this;
     }
 
+    public function clearItems()
+    {
+        $this->items->clear();
+        return $this;
+    }
+
     /**
      * @param Product $product
      * @return CartItem|null
@@ -118,6 +124,9 @@ class Cart
         return $this->items->matching($criteria)->first();
     }
 
+    /**
+     * @return int
+     */
     public function getItemsQuantity()
     {
         $count = 0;
@@ -128,6 +137,9 @@ class Cart
         return $count;
     }
 
+    /**
+     * @return float
+     */
     public function getTotal()
     {
         $total = 0;

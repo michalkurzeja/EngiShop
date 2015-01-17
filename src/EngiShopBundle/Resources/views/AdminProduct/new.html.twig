@@ -1,22 +1,14 @@
 {% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
 {% block header %}
     <h1>Nowy Produkt</h1>
 {% endblock header %}
+
 {% block content %}
     <form class="contain-floats" action="{{ path('engishop_admin_product_new') }}" method="post" {{ form_enctype(form) }}>
         {{ form_errors(form) }}
 
         {{ form_rest(form) }}
-
-        {% if product.image %}
-            <div id="img-preview">
-                <div class="col-lg-3"><label class="control-label">Obecny obraz:</label></div>
-                <div class="col-lg-8">
-                    <img src="/{{ product.image.webPath }}" alt="obraz" class="img-thumbnail" width="200" />
-                    <button type="button" data-href="{{ path('engishop_admin_product_delete_image', { 'id': product.id }) }}" class="btn btn-link delete" style="vertical-align:top"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
-                </div>
-            </div>
-        {% endif %}
 
         <div class="col-lg-offset-3 col-lg-8">
             <div class="buttons-wrap inline-block">

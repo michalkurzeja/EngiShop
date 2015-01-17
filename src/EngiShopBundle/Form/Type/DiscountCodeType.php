@@ -7,20 +7,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class CategoryType extends AbstractType
+class DiscountCodeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', ['label' => 'Nazwa'])
-            ->add('description', 'textarea', [
-                'label' => 'Opis',
-                'attr' => [
-                    'rows' => 10
-                ]
-            ])
-            ->add('slug', 'text', [
-                'label' => 'Adres'
+            ->add('code', 'text', ['label' => 'Kod'])
+            ->add('discount', 'percent', [
+                'label' => 'Zniżka'
             ])
             ->add('active', 'checkbox', [
                 'label' => 'Aktywna?',
@@ -32,7 +26,7 @@ class CategoryType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class' => 'EngiShopBundle\Entity\Category'
+                'data_class' => 'EngiShopBundle\Entity\DiscountCode'
             ]);
     }
 
@@ -43,6 +37,6 @@ class CategoryType extends AbstractType
      */
     public function getName()
     {
-        return 'engishop_category';
+        return 'engishop_discount_code';
     }
 } 

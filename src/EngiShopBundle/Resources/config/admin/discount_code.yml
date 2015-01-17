@@ -1,0 +1,27 @@
+engishop_admin_discount_code:
+    path: /
+    defaults: { _controller: EngiShopBundle:AdminDiscountCode:index }
+
+engishop_admin_discount_code_new:
+    path: /new
+    defaults: { _controller: EngiShopBundle:AdminDiscountCode:new }
+
+engishop_admin_discount_code_edit:
+    path: /edit/{id}
+    defaults: { _controller: EngiShopBundle:AdminDiscountCode:edit }
+    requirements:
+        id:  \d+
+
+engishop_admin_discount_code_toggle:
+    path: /toggle/{id}
+    defaults: { _controller: EngiShopBundle:AdminDiscountCode:toggle }
+    methods:  [POST]
+    requirements:
+        id:  \d+
+
+engishop_admin_discount_code_delete:
+    path: /delete/{id}
+    defaults: { _controller: EngiShopBundle:AdminDiscountCode:delete }
+    methods:  [POST]
+    requirements:
+        id:  \d+

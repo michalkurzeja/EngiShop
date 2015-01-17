@@ -1,0 +1,71 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <h1>Złóż zamówienie</h1>
+
+    <form class="contain-floats" action="{{ path('engishop_front_order_new') }}" method="post" {{ form_enctype(form) }}>
+        <h2>Dane adresowe:</h2>
+
+        {{ form_errors(form) }}
+
+        {{ form_rest(form) }}
+
+        <h2>Podsumowanie:</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Lp.</th>
+                <th>Przedmiot</th>
+                <th>Cena (szt.)</th>
+                <th>Ilość</th>
+                <th>Cena (razem)</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for item in order.items %}
+                <tr>
+                    <td>#{{ loop.index }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.price | number_format(2, ',') }} zł</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.total | number_format(2, ',') }} zł</td>
+                </tr>
+            {% endfor %}
+            {% if discount > 0 %}
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td>Razem:</td>
+                    <td>{{ order.itemsQuantity }}</td>
+                    <td>{{ order.total | number_format(2, ',') }} zł</td>
+                </tr>
+                <tr>
+                    <td colspan="2">&nbsp;</td>
+                    <td><span class="discount">Zniżka:</span></td>
+                    <td><span class="discount">-</span></td>
+                    <td><span class="discount">-{{ discount * 100 }}%</span></td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td colspan="2">&nbsp;</td>
+                <td><span class="bold">Razem:</span></td>
+                <td><span class="bold">{{ order.itemsQuantity }}</span></td>
+                <td><span class="bold">{{ (order.total * (1 - discount)) | number_format(2, ',') }} zł</span></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="col-lg-offset-3 col-lg-8">
+            <div class="buttons-wrap inline-block">
+                <a href="{{ path('engishop_front_cart') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                <button type="submit" class="btn btn-primary">Zamów <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            $('select').select2();
+        });
+    </script>
+{% endblock content_main %}

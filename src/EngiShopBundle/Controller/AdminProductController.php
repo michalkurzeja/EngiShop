@@ -27,18 +27,16 @@ class AdminProductController extends Base\AdminController
      */
     public function newAction(Request $request)
     {
-        $product = new Product();
-        $form = $this->createForm(new ProductType(), $product);
+        $form = $this->createForm(new ProductType());
 
         if ($form->handleRequest($request)->isValid()) {
-            $this->getEm()->persist($product);
+            $this->getEm()->persist($form->getData());
             $this->getEm()->flush();
 
             return $this->redirectToRoute('engishop_admin_product');
         }
 
         return [
-            'product' => $product,
             'form' => $form->createView()
         ];
     }
