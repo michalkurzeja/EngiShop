@@ -1,0 +1,115 @@
+{% extends 'EngiShopBundle::admin_layout.html.twig' %}
+
+{% block header %}
+    <h1>Zamówienia{% if user %} ({{ user }} - {{ user.email }}){% endif %}</h1>
+{% endblock header %}
+
+{% block content %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Uzytkownik</th>
+            <th>Data</th>
+            <th>Przedmioty</th>
+            <th>Kwota</th>
+            <th>Status</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td><a href="{{ path('engishop_admin_user_edit', {'id': order.user.id}) }}">{{ order.user }}</a></td>
+                <td><span class="glyphicon glyphicon-calendar"></span> {{ order.createdAt | localizeddate('long', 'none') }} <strong style="margin-left: 10px"><span class="glyphicon glyphicon-time"></span> {{ order.createdAt | date('H:i') }}</strong></td>
+                <td>{{ order.itemsQuantity }}</td>
+                <td><strong>{{ order.totalWithDiscount }} zł</strong></td>
+                <td>{% if order.completed %}<span class="label label-success">Zakończone</span>{% elseif order.inProcess %}<span class="label label-primary">W realizacji</span>{% else %}<span class="label label-warning">Oczekuje</span>{% endif %}</td>
+                <td class="col-narrow">
+                    {% if not order.inProcess and not order.completed %}
+                        <form class="inline-block" action="{{ path('engishop_admin_order_accept', { 'id': order.id, 'user': user ? user.id : null }) }}" method="post">
+                            <button type="submit" class="btn btn-primary btn-xs change-state"><span class="glyphicon glyphicon-ok-circle"></span> Realizuj</button>
+                        </form>
+                    {% endif %}
+                    {% if order.inProcess and not order.completed %}
+                        <form class="inline-block" action="{{ path('engishop_admin_order_complete', { 'id': order.id, 'user': user ? user.id : null }) }}" method="post">
+                            <button type="submit" class="btn btn-success btn-xs change-state"><span class="glyphicon glyphicon-ok-circle"></span> Zakończ</button>
+                        </form>
+                    {% endif %}
+                </td>
+                <td class="col-narrow">
+                    <a href="{{ path('engishop_admin_order_show', { 'id': order.id, 'user': user ? user.id : null }) }}" class="btn btn-default btn-xs"><span class="glyphicon glyphicon-eye-open"></span> Szczegóły</a>
+                </td>
+                <td class="col-narrow">
+                    {% if not order.inProcess %}
+                    <form class="inline-block" action="{{ path('engishop_admin_order_delete', { 'id': order.id, 'user': user ? user.id : null }) }}" method="post">
+                        <button type="submit" class="btn btn-danger btn-xs delete"><span class="glyphicon glyphicon-trash"></span> Usuń</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+        {% else %}
+            <tr class="table-empty-row">
+                <td colspan="7">
+                    <h4><span class="glyphicon glyphicon-info-sign"></span> Nie ma żadnych zamówień!</h4>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script type="text/javascript">
+        $(function() {
+            $('button.change-state').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz zmienić stan tego zamówienia?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+
+            $('button.delete').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć to zamówienie?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <div id="register-wrap" class="well">
+        <div id="form-register" class="panel panel-success">
+            <div class="panel-heading bold">
+                <span class="glyphicon glyphicon-user"></span> Zejestracja zakończona!
+            </div>
+            <div class="panel-body">
+                <p class="well">
+                    Dziękujemy za rejestrację!<br>
+                    Twoje konto zostało pomyślnie założone. Teraz możesz się <a href="{{ path('engishop_front_login') }}">zalogować</a> i przejść do zakupów!
+                </p>
+
+                <div class="pull-right margin-top">
+                    <div class="buttons-wrap inline-block">
+                        <a href="{{ path('engishop_front_login') }}" class="btn btn-success">Logowanie <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

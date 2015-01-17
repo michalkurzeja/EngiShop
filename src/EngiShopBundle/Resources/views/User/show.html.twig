@@ -1,0 +1,59 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <h1><span class="glyphicon glyphicon-user"></span> Moje konto</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <h2>Dane osobowe:</h2>
+
+        <div class="user-details">
+            <span class="user-name">{{ user.firstName }} {{ user.lastName }}</span>
+            <span>{{ user }} (<a href="mailto:{{ user.email }}">{{ user.email }}</a>)</span>
+            <span>{{ user.address }} {{ user.address2 }}</span>
+            <span>{{ user.zip }} {{ user.city }}</span>
+            <span>{{ user.country | country(app.request.locale) }}</span>
+        </div>
+        <div class="edit-profile">
+            <a href="{{ path('engishop_front_user_edit') }}">Edytuj Konto <span class="glyphicon glyphicon-chevron-right"></span></a>
+        </div>
+
+    </div>
+    <div class="col-md-8">
+        <h2>Zamówienia:</h2>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Numer</th>
+                <th>Data</th>
+                <th>Przedmioty</th>
+                <th>Kwota</th>
+                <th>Status</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in user.orders %}
+                <tr>
+                    <td>#{{ order.id }}</td>
+                    <td><span class="glyphicon glyphicon-calendar"></span> {{ order.createdAt | localizeddate('long', 'none') }} <strong style="margin-left: 10px"><span class="glyphicon glyphicon-time"></span> {{ order.createdAt | date('H:i') }}</strong></td>
+                    <td>{{ order.itemsQuantity }}</td>
+                    <td><strong>{{ order.totalWithDiscount | number_format(2, ',') }} zł</strong></td>
+                    <td>{% if order.completed %}<span class="label label-success">Zakończone</span>{% elseif order.inProcess %}<span class="label label-primary">W realizacji</span>{% else %}<span class="label label-warning">Oczekuje</span>{% endif %}</td>
+                    <td>
+                        <a href="{{ path('engishop_front_order_show', { 'id': order.id }) }}" class="btn btn-link btn-xs"><span class="glyphicon glyphicon-eye-open"></span> Zobacz</a>
+                    </td>
+            {% else %}
+                <tr class="table-empty-row">
+                    <td colspan="7">
+                        <h4><span class="glyphicon glyphicon-info-sign"></span> Nie masz jeszcze żadnych zamówień!</h4>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

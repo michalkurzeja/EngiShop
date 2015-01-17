@@ -97,7 +97,7 @@ EngiShopBundle\Entity\Product:
                 message: Ta wartość nie jest poprawnym adresem.
                 pattern: /^[a-zA-Z0-9_\-\+]+$/
             - EngiShopBundle\Validator\Constraints\NotEqualToArray:
-                value: [login, logout, login_check, cart, order, profile]
+                value: [login, rejestracja, logout, login_check, koszyk, zamowienie, konto]
 
 EngiShopBundle\Entity\File:
     properties:

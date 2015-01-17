@@ -10,11 +10,15 @@
             </button>
             <a class="navbar-brand" href="{{ path('engishop_admin_homepage') }}">EngiShop Admin</a>
         </div>
+
+        {% set awaiting_orders = order_helper.awaitingOrders %}
+
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li><a href="{{ path('engishop_admin_product') }}">Produkty</a></li>
                 <li><a href="{{ path('engishop_admin_category') }}">Kategorie</a></li>
                 <li><a href="{{ path('engishop_admin_user') }}">Użytkownicy</a></li>
+                <li><a href="{{ path('engishop_admin_order') }}">Zamówienia{% if awaiting_orders %} <span class="badge">{{ awaiting_orders }}</span>{% endif %}</a></li>
                 <li><a href="{{ path('engishop_admin_discount_code') }}">Kody Zniżkowe</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

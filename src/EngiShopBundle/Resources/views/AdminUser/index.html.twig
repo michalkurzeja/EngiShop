@@ -17,6 +17,7 @@
             <th>Status</th>
             <th>Zamówienia</th>
             <th>Utworzony</th>
+            <th>Ostatnio zalogowany</th>
             <th>&nbsp;</th>
         </tr>
         </thead>
@@ -27,8 +28,9 @@
                 <td>{{ user.username }}</td>
                 <td>{{ user.email }}</td>
                 <td>{% if user.isActive %}<span class="label label-success">Aktywny</span>{% else %}<span class="label label-danger">Nieaktywny</span>{% endif %}</td>
-                <td><a>~</a></td>
-                <td>{{ user.createdAt | date('d-m-Y') }}</td>
+                <td>{% if user.orders.count %}<a href="{{ path('engishop_admin_order', {'user': user.id}) }}"><strong>{{ user.orders.count }}</strong> (przejdź)</a>{% else %}-{% endif %}</td>
+                <td>{{ user.createdAt | localizeddate('short') }}</td>
+                <td>{% if user.lastLogin %}{{ user.lastLogin | localizeddate('short') }}{% else %}-{% endif %}</td>
                 <td class="actions">
                     <form class="inline-block" action="{{ path('engishop_admin_user_toggle', { 'id': user.id }) }}" method="post">
                         <button type="submit" class="btn btn-{% if user.isActive %}default{% else %}primary{% endif %} btn-xs"><span class="glyphicon glyphicon-{% if user.isActive %}ban{% else %}ok{% endif %}-circle"></span> {% if user.isActive %}Dezaktywuj{% else %}Aktywuj{% endif %}</button>
@@ -48,4 +50,32 @@
         {% endfor %}
         </tbody>
     </table>
+
+    <script type="text/javascript">
+        $(function() {
+            $('button.delete').click(function() {
+                var $btn = $(this);
+
+                bootbox.dialog({
+                    message: 'Czy napewno chcesz usunąć tego użytkownika?',
+                    title: 'Potwierdź decyzję',
+                    buttons: {
+                        no: {
+                            label: 'Nie',
+                            className: 'btn-default'
+                        },
+                        yes: {
+                            label: 'Tak',
+                            className: 'btn-danger',
+                            callback: function() {
+                                $btn.closest('form').submit();
+                            }
+                        }
+                    }
+                });
+
+                return false;
+            });
+        });
+    </script>
 {% endblock content %}

@@ -1,0 +1,7 @@
+engishop_front_user_show:
+    path: /
+    defaults: { _controller: EngiShopBundle:User:show }
+
+engishop_front_user_edit:
+    path: /edytuj
+    defaults: { _controller: EngiShopBundle:User:edit }

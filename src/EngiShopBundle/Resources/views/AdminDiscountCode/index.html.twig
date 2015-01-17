@@ -22,7 +22,7 @@
         <tbody>
         {% for code in codes %}
             <tr>
-                <td>{{ code.id }}</td>
+                <td>#{{ code.id }}</td>
                 <td>{{ code.code }}</td>
                 <td>{{ code.discount * 100 }}%</td>
                 <td>{% if code.active %}<span class="label label-success">Aktywny</span>{% else %}<span class="label label-danger">Nieaktywny</span>{% endif %}</td>
@@ -46,7 +46,7 @@
                 var $btn = $(this);
 
                 bootbox.dialog({
-                    message: 'Czy napewno chcesz usunąć ten produkt?',
+                    message: 'Czy napewno chcesz usunąć ten kod?',
                     title: 'Potwierdź decyzję',
                     buttons: {
                         no: {

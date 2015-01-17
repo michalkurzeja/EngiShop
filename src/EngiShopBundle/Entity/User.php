@@ -91,9 +91,16 @@ class User implements AdvancedUserInterface, \Serializable
     private $createdAt;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLogin;
+
+    /**
      * @var Cart
      *
-     * @ORM\OneToOne(targetEntity="Cart", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="Cart", mappedBy="user", cascade={"persist", "remove"})
      */
     private $cart;
 
@@ -101,6 +108,7 @@ class User implements AdvancedUserInterface, \Serializable
      * @var ArrayCollection
      *
      * @ORM\OneToMany(targetEntity="OrderClass", mappedBy="user", fetch="EXTRA_LAZY", cascade={"persist", "remove"}, orphanRemoval=true)
+     * @ORM\OrderBy({"createdAt"="desc"})
      */
     private $orders;
 
@@ -215,6 +223,24 @@ class User implements AdvancedUserInterface, \Serializable
     public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getLastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    /**
+     * @param \DateTime $lastLogin
+     * @return User
+     */
+    public function setLastLogin(\DateTime $lastLogin)
+    {
+        $this->lastLogin = $lastLogin;
         return $this;
     }
 
@@ -477,5 +503,10 @@ class User implements AdvancedUserInterface, \Serializable
             $this->password,
             $this->isActive
             ) = unserialize($serialized);
+    }
+
+    public function __toString()
+    {
+        return $this->getUsername();
     }
 }

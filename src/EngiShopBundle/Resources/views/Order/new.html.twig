@@ -59,6 +59,7 @@
             <div class="buttons-wrap inline-block">
                 <a href="{{ path('engishop_front_cart') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
                 <button type="submit" class="btn btn-primary">Zamów <span class="glyphicon glyphicon-chevron-right"></span></button>
+                <input type="hidden" name="discountCode" value="{{ app.request.get('discountCode') }}">
             </div>
         </div>
     </form>

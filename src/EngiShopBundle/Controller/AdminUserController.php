@@ -32,8 +32,8 @@ class AdminUserController extends Base\AdminController
             /** @var User $user */
             $user = $form->getData();
 
-            $tmpPassword = $this->get('engishop.password_encoder')->encodePassword($user);
-            $user->setPassword($tmpPassword);
+            $plainPassword = $form['newPassword']->getData();
+            $user->setPassword($this->get('engishop.password_encoder')->encodePassword($user, $plainPassword));
 
             $this->getEm()->persist($user);
             $this->getEm()->flush();
@@ -54,18 +54,13 @@ class AdminUserController extends Base\AdminController
      */
     public function editAction(User $user, Request $request)
     {
-        $originalPassword = $user->getPassword();
         $form = $this->createForm(new UserType(), $user, ['edit' => true]);
 
         if ($form->handleRequest($request)->isValid()) {
-            $plainPassword = $user->getPassword();
+            $plainPassword = $form['newPassword']->getData();
 
             if (!empty($plainPassword))  {
-                $tmpPassword = $this->get('engishop.password_encoder')->encodePassword($user);
-
-                $user->setPassword($tmpPassword);
-            } else {
-                $user->setPassword($originalPassword);
+                $user->setPassword($this->get('engishop.password_encoder')->encodePassword($user, $plainPassword));
             }
 
             $this->getEm()->flush();

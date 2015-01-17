@@ -6,6 +6,7 @@ use EngiShopBundle\Entity\OrderClass;
 use EngiShopBundle\Form\Type\OrderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class OrderController extends Base\FrontController
 {
@@ -33,6 +34,23 @@ class OrderController extends Base\FrontController
             'order' => $form->getData(),
             'discount' => $discount,
             'form' => $form->createView()
+        ];
+    }
+
+    /**
+     * @param OrderClass $order
+     * @return array
+     *
+     * @Template
+     */
+    public function showAction(OrderClass $order)
+    {
+        if ($this->getUser() != $order->getUser()) {
+            throw new AccessDeniedException;
+        }
+
+        return [
+            'order' => $order
         ];
     }
 }

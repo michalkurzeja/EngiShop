@@ -1,0 +1,42 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <div id="register-wrap" class="well">
+        <div id="form-register" class="panel panel-success">
+            <div class="panel-heading bold">
+                <span class="glyphicon glyphicon-user"></span> Zarejestruj nowe konto
+            </div>
+            <div class="panel-body">
+                <form action="{{ path('engishop_front_user_register') }}" method="post" {{ form_enctype(form) }}>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            {{ form_row(form.username) }}
+                            {{ form_row(form.email) }}
+                            {{ form_row(form.password) }}
+                            {{ form_row(form.firstName) }}
+                            {{ form_row(form.lastName) }}
+                        </div>
+                        <div class="col-md-6">
+                            {{ form_row(form.address) }}
+                            {{ form_row(form.address2) }}
+                            {{ form_row(form.zip) }}
+                            {{ form_row(form.city) }}
+                            {{ form_row(form.state) }}
+                            {{ form_row(form.country) }}
+                        </div>
+                    </div>
+
+                    {{ form_rest(form) }}
+
+                    <div class="pull-right margin-top">
+                        <div class="buttons-wrap inline-block">
+                            <a href="{{ path('engishop_front_homepage') }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                            <button type="submit" class="btn btn-success">Zarejestruj <span class="glyphicon glyphicon-chevron-right"></span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content_main %}

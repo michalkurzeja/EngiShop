@@ -14,6 +14,10 @@ engishop_admin_discount_code:
     resource: "@EngiShopBundle/Resources/config/admin/discount_code.yml"
     prefix:   /discount-code
 
+engishop_admin_order:
+    resource: "@EngiShopBundle/Resources/config/admin/order.yml"
+    prefix:   /order
+
 engishop_admin_login:
     path:     /login
     defaults: { _controller: EngiShopBundle:AdminSecurity:login }

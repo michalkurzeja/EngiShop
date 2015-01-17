@@ -1,0 +1,39 @@
+{% extends 'EngiShopBundle::layout.html.twig' %}
+
+{% block content_main %}
+    <h1>Edycja konta</h1>
+
+    <form action="{{ path('engishop_front_user_edit') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_errors(form) }}
+
+        <div class="row">
+            <div class="col-md-6">
+                <h2>Dane osobowe:</h2>
+                {{ form_row(form.email) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.address2) }}
+                {{ form_row(form.zip) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.state) }}
+                {{ form_row(form.country) }}
+            </div>
+            <div class="col-md-6">
+                <h2 class="inline-block">Hasło:</h2>
+                {{ form_row(form.newPassword) }}
+                {{ form_row(form.oldPassword) }}
+                <span class="pull-right">(Pozostaw pola puste, jeśli nie chcesz zmieniać hasła)</span>
+            </div>
+        </div>
+
+        {{ form_rest(form) }}
+        <div class="pull-right margin-top">
+            <div class="buttons-wrap inline-block">
+                <a href="{{ path('engishop_front_user_show', {'id': app.user.id}) }}" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left"></span> Cofnij</a>
+                <button type="submit" class="btn btn-primary">Zapisz <span class="glyphicon glyphicon-chevron-right"></span></button>
+            </div>
+        </div>
+    </form>
+{% endblock %}
+

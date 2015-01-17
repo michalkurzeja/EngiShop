@@ -1,0 +1,35 @@
+engishop_admin_order:
+    path: /{user}
+    defaults: { _controller: EngiShopBundle:AdminOrder:index, user: null }
+    requirements:
+        user: \d*
+
+engishop_admin_order_show:
+    path: /show/{id}/{user}
+    defaults: { _controller: EngiShopBundle:AdminOrder:show, user: null }
+    requirements:
+        id: \d+
+        user: \d*
+
+engishop_admin_order_accept:
+    path: /accept/{id}/{user}
+    defaults: { _controller: EngiShopBundle:AdminOrder:accept, user: null }
+    requirements:
+        id:  \d+
+        user: \d*
+
+engishop_admin_order_complete:
+    path: /complete/{id}/{user}
+    defaults: { _controller: EngiShopBundle:AdminOrder:complete, user: null }
+    methods:  [POST]
+    requirements:
+        id:  \d+
+        user: \d*
+
+engishop_admin_order_delete:
+    path: /delete/{id}/{user}
+    defaults: { _controller: EngiShopBundle:AdminOrder:delete, user: null }
+    methods:  [POST]
+    requirements:
+        id:  \d+
+        user: \d*

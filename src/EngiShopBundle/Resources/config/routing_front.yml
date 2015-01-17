@@ -8,11 +8,21 @@ engishop_front_product:
 
 engishop_front_cart:
     resource: "@EngiShopBundle/Resources/config/front/cart.yml"
-    prefix:   /cart
+    prefix:   /koszyk
 
 engishop_front_order:
     resource: "@EngiShopBundle/Resources/config/front/order.yml"
-    prefix:   /order
+    prefix:   /zamowienie
+
+engishop_front_user:
+    resource: "@EngiShopBundle/Resources/config/front/user.yml"
+    prefix:   /konto
+
+
+
+engishop_front_user_register:
+    path: /rejestracja
+    defaults: { _controller: EngiShopBundle:User:register }
 
 engishop_front_login:
     path:     /login

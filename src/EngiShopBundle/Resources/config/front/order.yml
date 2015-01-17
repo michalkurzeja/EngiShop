@@ -1,3 +1,9 @@
 engishop_front_order_new:
     path: /
     defaults: { _controller: EngiShopBundle:Order:new }
+
+engishop_front_order_show:
+    path: /{id}
+    defaults: { _controller: EngiShopBundle:Order:show }
+    requirements:
+        id: \d+

@@ -16,6 +16,7 @@ a:focus {
 .toggle { cursor: pointer }
 .flex-container { display: flex }
 .col-narrow { width: 1px }
+.margin-top { margin-top: 20px }
 /* -------------- */
 
 .navbar {
@@ -67,15 +68,18 @@ a:focus {
     font-weight: bold;
 }
 
-#login-wrap {
+#login-wrap,
+#register-wrap {
     margin: 0 auto;
     padding: 30px;
+}
+
+#login-wrap {
     max-width: 500px;
 }
 
-#form-login button {
-    font-weight: bold;
-    margin-top: 20px;
+#register-wrap {
+    max-width: 1000px;
 }
 
 #footer {
@@ -200,4 +204,24 @@ h1.toggle:hover {
 .discount {
     color: #008614;
     font-weight: bold;
+}
+
+.user-details {
+    padding: 10px 150px 10px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    background: #ddd;
+}
+
+.user-details > span {
+    display: block;
+}
+
+.user-name {
+    font-size: 1.3em;
+}
+
+.edit-profile {
+    margin-left: 10px;
+    margin-top: 5px;
 }

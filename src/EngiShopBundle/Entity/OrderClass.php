@@ -100,7 +100,7 @@ class OrderClass
     /**
      * @var User
      *
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
      */
     private $user;
 
@@ -292,7 +292,7 @@ class OrderClass
      *
      * @return boolean 
      */
-    public function getInProcess()
+    public function isInProcess()
     {
         return $this->inProcess;
     }
@@ -315,7 +315,7 @@ class OrderClass
      *
      * @return boolean 
      */
-    public function getCompleted()
+    public function isCompleted()
     {
         return $this->completed;
     }
@@ -427,6 +427,11 @@ class OrderClass
         foreach ($this->getItems() as $item) $total += $item->getTotal();
 
         return $total;
+    }
+
+    public function getTotalWithDiscount()
+    {
+        return $this->getTotal() * (1 - $this->getDiscount());
     }
 
     /**

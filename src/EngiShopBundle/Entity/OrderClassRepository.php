@@ -12,4 +12,8 @@ use Doctrine\ORM\EntityRepository;
  */
 class OrderClassRepository extends EntityRepository
 {
+    public function getAwaitingOrdersCount()
+    {
+        return $this->createQueryBuilder('o')->select('COUNT(o.id)')->where('o.inProcess = 0')->andWhere('o.completed = 0')->getQuery()->getSingleScalarResult();
+    }
 }

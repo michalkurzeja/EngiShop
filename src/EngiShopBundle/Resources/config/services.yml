@@ -7,6 +7,23 @@ services:
          tags:
              - { name: twig.extension }
 
+    twig.extension.intl:
+         class: Twig_Extensions_Extension_Intl
+         tags:
+             - { name: twig.extension }
+
+    engishop.twig.country_extension:
+        class: EngiShopBundle\Twig\CountryExtension
+        tags:
+            - { name: twig.extension }
+
+    engishop.security.front.login_listener:
+        class: EngiShopBundle\Security\Firewall\LoginListener
+        arguments:
+            - @doctrine.orm.entity_manager
+        tags:
+            - { name: kernel.event_listener, event: security.interactive_login }
+
     engishop.password_encoder:
         class: EngiShopBundle\Services\PasswordEncoder
         arguments:
@@ -22,4 +39,9 @@ services:
         arguments:
             - @security.authorization_checker
             - @security.token_storage
+            - @doctrine.orm.entity_manager
+
+    engishop.order_helper:
+        class: EngiShopBundle\Services\OrderHelper
+        arguments:
             - @doctrine.orm.entity_manager

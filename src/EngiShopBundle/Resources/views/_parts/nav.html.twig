@@ -19,10 +19,11 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
             {% if app.user %}
-                <li><a href=""><span class="glyphicon glyphicon-user"></span> Konto</a></li>
+                <li><a href="{{ path('engishop_front_user_show') }}"><span class="glyphicon glyphicon-user"></span> Konto</a></li>
                 <li><a href="{{ path('engishop_front_cart') }}"><span class="glyphicon glyphicon-shopping-cart"></span> Koszyk ({{ cart_helper.itemCount }})</a></li>
                 <li><a href="{{ path('engishop_front_logout') }}"><span class="glyphicon glyphicon-log-out"></span> Wyloguj</a></li>
             {% else %}
+                <li><a href="{{ path('engishop_front_user_register') }}"><span class="glyphicon glyphicon-user"></span> Zarejestruj</a></li>
                 <li><a href="{{ path('engishop_front_login') }}">Zaloguj <span class="glyphicon glyphicon-log-in"></span></a></li>
             {% endif %}
             </ul>
