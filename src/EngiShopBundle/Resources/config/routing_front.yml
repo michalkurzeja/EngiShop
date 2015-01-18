@@ -41,3 +41,7 @@ engishop_front_logout:
 engishop_front_homepage:
     path: /
     defaults: { _controller: EngiShopBundle:Index:index }
+
+engishop_front_contact:
+    path: /kontakt
+    defaults: { _controller: EngiShopBundle:Index:contact }

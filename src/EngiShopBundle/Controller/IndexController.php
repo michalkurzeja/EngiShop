@@ -16,4 +16,12 @@ class IndexController extends Base\FrontController
             'products' => $this->getEm()->getRepository('EngiShopBundle:Product')->getFeaturedProducts()
         ];
     }
+
+    /**
+     * @Template
+     */
+    public function contactAction()
+    {
+        return [];
+    }
 }

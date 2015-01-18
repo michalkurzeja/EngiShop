@@ -26,7 +26,7 @@
                 <td><a href="{{ path('engishop_admin_user_edit', {'id': order.user.id}) }}">{{ order.user }}</a></td>
                 <td><span class="glyphicon glyphicon-calendar"></span> {{ order.createdAt | localizeddate('long', 'none') }} <strong style="margin-left: 10px"><span class="glyphicon glyphicon-time"></span> {{ order.createdAt | date('H:i') }}</strong></td>
                 <td>{{ order.itemsQuantity }}</td>
-                <td><strong>{{ order.totalWithDiscount }} zł</strong></td>
+                <td><strong>{{ order.totalWithDiscount | number_format(2, ',') }} zł</strong></td>
                 <td>{% if order.completed %}<span class="label label-success">Zakończone</span>{% elseif order.inProcess %}<span class="label label-primary">W realizacji</span>{% else %}<span class="label label-warning">Oczekuje</span>{% endif %}</td>
                 <td class="col-narrow">
                     {% if not order.inProcess and not order.completed %}
